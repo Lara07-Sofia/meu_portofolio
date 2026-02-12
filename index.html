@@ -1,15 +1,144 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Portfolio</title>
+    <meta name="description" content="Portfolio de Lara Santos - Desenvolvedor Web">
+
+    <title>Lara Santos - Portfolio</title>
+
     <link rel="stylesheet" href="styles.css">
 </head>
+
+
+
+
+
 <body>
-    <h1>Hello World! 🚀</h1>   
-    <p>O meu portfolio está a nascer...</p>
-    
+    <!-- HEADER -->
+    <header>
+        <nav>
+            <h1>Lara Santos</h1>
+
+            <ul>
+                <li><a href="#about">Sobre Mim</a></li>
+                <li><a href="#projects">Projetos</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Alternar tema">
+        <span class="icon-light">☀️</span>
+        <span class="icon-dark">🌙</span>
+        </button>
+        </nav>
+    </header>
+
+
+    <!-- HERO / INTRO -->
+    <section class="hero">
+
+        <h2>Olá! Sou Lara Santos 👋</h2>
+        <p>Desenvolvedor Web | Estudante | Criativa</p>
+
+    </section>
+
+
+    <!-- SOBRE MIM -->
+    <section id="about" class="about">
+
+        <h2>Sobre Mim</h2>
+        <p>Escreve uma breve descrição sobre ti...</p>
+
+        <!-- RELÓGIO -->
+    <div class="clock-container">
+        <div class="clock">
+            <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+        </div>
+        <button id="format-toggle" class="format-toggle">12h/24h</button>
+    </div>
+
+     <!-- CONTADOR DE VISITAS -->
+    <div class="visit-counter">
+        <p>👋 Visitaste esta página <strong id="visit-count">0</strong> vezes</p>
+        <p class="last-visit">Última visita: <span id="last-visit">Primeira vez!</span></p>
+        <button id="reset-counter" class="reset-btn">🔄 Reset</button>
+    </div>
+    </section>
+
+    <!-- PROJETOS -->
+    <section id="projects" class="projects">
+
+        <h2>Projetos</h2>
+
+    <!-- Barra de controlo (filtros + pesquisa) -->
+        <div class="projects-controls">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-category="all">
+                    Todos <span class="count">0</span>
+                </button>
+                <button class="filter-btn" data-category="web">
+                    Web <span class="count">0</span>
+                </button>
+                <button class="filter-btn" data-category="mobile">
+                    Mobile <span class="count">0</span>
+                </button>
+                <button class="filter-btn" data-category="design">
+                    Design <span class="count">0</span>
+                </button>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Pesquisar projetos...">
+            </div>
+        </div>
+        
+        <!-- Grid onde os projetos vão aparecer -->
+        <div id="projects-grid" class="projects-grid">
+            <!-- Os cards serão inseridos aqui via JavaScript -->
+        </div>
+        
+        <!-- Mensagem quando não há resultados -->
+        <div id="no-results" class="no-results" style="display: none;">
+            <p>😕 Nenhum projeto encontrado</p>
+        </div>
+    </section>
+
+    <!-- Modal (fora da secção) -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">×</span>
+            <div id="modal-body">
+                <!-- Conteúdo do modal será inserido aqui -->
+            </div>
+        </div>
+    </div>
+
+        <div class="projects-grid">
+            <!-- Cards de projetos vão aqui (dinâmicos mais tarde) -->
+            <article class="project-card">
+                <h3>Projeto 1</h3>
+                <p>Descrição breve...</p>
+            </article>
+        </div>
+
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contact" class="contact">
+
+        <h2>Contacto</h2>
+        <p>Em breve terás um formulário aqui!</p>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+
+        <p>© <span id="year"></span> Lara Santos. Feito com ❤️ e ☕</p>
+        
+    </footer>
+
     <script src="script.js"></script>
 </body>
+
 </html>
