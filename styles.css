@@ -7,16 +7,16 @@
  
 /* ===== VARIABLES (TEMA CLARO - padrão) ===== */
 :root {
-    --bg-primary: #E4B7E5;
-    --bg-secondary: #F9F9ED;
+    --bg-primary: #66ADD9;
+    --bg-secondary: #AEDFF2;
  
-    --text-primary: #9A48D0;
-    --text-secondary: #7E5A9B;
+    --text-primary: #224459;
+    --text-secondary: #224459;
  
-    --accent: #9A48D0;
-    --accent-2: #B288C0;
+    --accent: #224459;
+    --accent-2: #A2E4F2;
  
-    --border: #9A48D044;
+    --border: #224459;
  
     --spacing: 1rem;
  
