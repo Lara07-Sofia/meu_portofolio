@@ -1,122 +1,95 @@
-// ===== DARK MODE TOGGLE =====
+/* =========================================================
+   TEMA ESCURO / CLARO (Dark Mode)
+   ========================================================= */
 
-// 1. Função para alternar tema
+/* Alterna entre tema claro e escuro */
 function toggleTheme() {
-    // Adiciona/remove classe dark-mode do body
     document.body.classList.toggle('dark-mode');
-    
-    // Verifica se está em dark mode
+
     const isDark = document.body.classList.contains('dark-mode');
-    
+
     // Guarda preferência no localStorage
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    
+
     console.log(`Tema alterado para: ${isDark ? 'escuro' : 'claro'}`);
 }
 
-// 2. Event listener no botão
+/* Botão de alternar tema */
 const themeToggle = document.getElementById('theme-toggle');
 if (themeToggle) {
     themeToggle.addEventListener('click', toggleTheme);
 }
 
-
-
-// 3. Carregar tema guardado ao iniciar
+/* Carrega o tema guardado ao abrir a página */
 function loadSavedTheme() {
-    // Buscar tema do localStorage
     const savedTheme = localStorage.getItem('theme');
-    
-    // Se tiver tema guardado como 'dark', ativa dark mode
+
     if (savedTheme === 'dark') {
         document.body.classList.add('dark-mode');
     }
-    
+
     console.log(`Tema carregado: ${savedTheme || 'padrão (light)'}`);
 }
 
-// 4. Executar quando página carrega
-document.addEventListener('DOMContentLoaded', () => {
-    loadSavedTheme();
-});
 
 
+/* =========================================================
+   RELÓGIO DIGITAL
+   ========================================================= */
 
-
-
-// ===== RELÓGIO DIGITAL =====
-
-// Variável global para formato (true = 24h, false = 12h)
+/* true = formato 24h | false = formato 12h */
 let is24Hour = true;
 
-// 1. Função para atualizar o relógio
+/* Atualiza o relógio no ecrã */
 function updateClock() {
-    // Obter hora atual
     const now = new Date();
-    
+
     let hours = now.getHours();
     let minutes = now.getMinutes();
     let seconds = now.getSeconds();
-    
-    // Converter para 12h se necessário
+
+    // Converte para 12h se necessário
     if (!is24Hour) {
-        hours = hours % 12 || 12; // 0 vira 12
+        hours = hours % 12 || 12;
     }
-    
-    // Adicionar zero à esquerda se < 10
+
+    // Formatação com zero à esquerda
     hours = String(hours).padStart(2, '0');
     minutes = String(minutes).padStart(2, '0');
     seconds = String(seconds).padStart(2, '0');
-    
-    // Atualizar DOM
+
+    // Atualiza o DOM
     document.getElementById('hours').textContent = hours;
     document.getElementById('minutes').textContent = minutes;
     document.getElementById('seconds').textContent = seconds;
 }
 
-
-// 2. Variável para guardar o intervalo
-let clockInterval;
-
-// 3. Função para iniciar o relógio
+/* Inicia o relógio */
 function startClock() {
-    // Atualizar imediatamente
-    updateClock();
-    
-    // Atualizar a cada 1000ms (1 segundo)
-    clockInterval = setInterval(updateClock, 1000);
-    
+    updateClock(); // Atualiza imediatamente
+    setInterval(updateClock, 1000); // Atualiza a cada segundo
     console.log('⏰ Relógio iniciado!');
 }
 
-// 4. Iniciar quando página carrega
-document.addEventListener('DOMContentLoaded', () => {
-    startClock();
-});
-
-
-
-
-// 5. Função para alternar formato
+/* Alterna entre formato 12h / 24h */
 function toggleFormat() {
     is24Hour = !is24Hour;
-    
-    // Guardar preferência
+
+    // Guarda preferência
     localStorage.setItem('clockFormat', is24Hour ? '24' : '12');
-    
-    // Atualizar imediatamente
-    updateClock();
-    
+
+    updateClock(); // Atualiza imediatamente
+
     console.log(`Formato: ${is24Hour ? '24h' : '12h'}`);
 }
 
-// 6. Event listener no botão
+/* Botão de alternar formato */
 const formatToggle = document.getElementById('format-toggle');
 if (formatToggle) {
     formatToggle.addEventListener('click', toggleFormat);
 }
 
-// 7. Carregar formato guardado
+/* Carrega formato guardado */
 function loadClockFormat() {
     const saved = localStorage.getItem('clockFormat');
     if (saved) {
@@ -124,144 +97,131 @@ function loadClockFormat() {
     }
 }
 
-// Adicionar ao DOMContentLoaded
-document.addEventListener('DOMContentLoaded', () => {
-    loadClockFormat();
-    startClock();
-});
 
 
+/* =========================================================
+   CONTADOR DE VISITAS
+   ========================================================= */
 
-
-
-// ===== CONTADOR DE VISITAS =====
-
-// 1. Função para obter contagem atual
+/* Obtém número de visitas guardado */
 function getVisitCount() {
-    // Buscar do localStorage (retorna string ou null)
     const count = localStorage.getItem('visitCount');
-    
-    // Converter para número (ou 0 se não existir)
     return count ? parseInt(count) : 0;
 }
 
-// 2. Função para incrementar visitas
+/* Incrementa visitas e guarda data */
 function incrementVisitCount() {
-    // Obter contagem atual
     let count = getVisitCount();
-    
-    // Incrementar
     count++;
-    
-    // Guardar nova contagem
+
     localStorage.setItem('visitCount', count);
-    
-    // Guardar timestamp da visita
-    const now = new Date().toISOString();
-    localStorage.setItem('lastVisit', now);
-    
+
+    // Guarda data/hora da visita
+    localStorage.setItem('lastVisit', new Date().toISOString());
+
     return count;
 }
 
-// 3. Função para atualizar o display
+/* Atualiza número de visitas no ecrã */
 function updateVisitDisplay() {
     const count = getVisitCount();
-    
-    // Atualizar número
     const countElement = document.getElementById('visit-count');
+
     if (countElement) {
         countElement.textContent = count;
     }
-    
+
     console.log(`📊 Visitas: ${count}`);
 }
 
-
-
-
-
-// 4. Função para formatar data
+/* Formata a última visita em "há X minutos/horas/dias" */
 function formatLastVisit() {
     const lastVisitISO = localStorage.getItem('lastVisit');
-    
+
     if (!lastVisitISO) {
         return 'Primeira vez aqui! 🎉';
     }
-    
+
     const lastVisit = new Date(lastVisitISO);
     const now = new Date();
-    
-    // Calcular diferença em milissegundos
+
     const diff = now - lastVisit;
-    
-    // Converter para minutos/horas/dias
+
     const minutes = Math.floor(diff / 1000 / 60);
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
-    
+
     if (minutes < 1) return 'Há menos de 1 minuto';
     if (minutes < 60) return `Há ${minutes} minuto${minutes > 1 ? 's' : ''}`;
     if (hours < 24) return `Há ${hours} hora${hours > 1 ? 's' : ''}`;
     return `Há ${days} dia${days > 1 ? 's' : ''}`;
 }
 
-// 5. Atualizar display da última visita
+/* Atualiza texto da última visita */
 function updateLastVisitDisplay() {
-    const lastVisitText = formatLastVisit();
-    
     const lastVisitElement = document.getElementById('last-visit');
+
     if (lastVisitElement) {
-        lastVisitElement.textContent = lastVisitText;
+        lastVisitElement.textContent = formatLastVisit();
     }
 }
 
 
 
-
-
-// 6. Função para inicializar o contador
-function initVisitCounter() {
-    // Incrementar visitas
-    incrementVisitCount();
-    
-    // Atualizar displays
-    updateVisitDisplay();
-    updateLastVisitDisplay();
-    
-    console.log('📊 Contador de visitas inicializado!');
-}
-
-// 7. Executar quando página carrega
+/* =========================================================
+   INICIALIZAÇÃO GERAL (executa ao carregar a página)
+   ========================================================= */
 document.addEventListener('DOMContentLoaded', () => {
-    initVisitCounter();
-    // ... outras inicializações
+    loadSavedTheme();       // Carrega tema claro/escuro
+    loadClockFormat();      // Carrega formato 12h/24h
+    startClock();           // Inicia relógio
+    incrementVisitCount();  // Incrementa visitas
+    updateVisitDisplay();   // Atualiza número de visitas
+    updateLastVisitDisplay(); // Atualiza última visita
 });
 
 
 
 
-// 8. Função para resetar contador
+
+/* =========================================================
+   CONTADOR DE VISITAS — Inicialização e Reset
+   ========================================================= */
+
+/* Inicializa o contador ao carregar a página */
+function initVisitCounter() {
+    incrementVisitCount();      // Incrementa visitas
+    updateVisitDisplay();       // Atualiza número de visitas
+    updateLastVisitDisplay();   // Atualiza última visita
+
+    console.log('📊 Contador de visitas inicializado!');
+}
+
+/* Executa quando a página carrega */
+document.addEventListener('DOMContentLoaded', () => {
+    initVisitCounter();
+    // ... outras inicializações
+});
+
+/* Reset ao contador de visitas */
 function resetVisitCounter() {
-    // Confirmar com utilizador
-    const confirm = window.confirm('Tens a certeza que queres resetar o contador?');
-    
-    if (confirm) {
-        // Limpar localStorage
+    const confirmReset = window.confirm('Tens a certeza que queres resetar o contador?');
+
+    if (confirmReset) {
+        // Apaga dados guardados
         localStorage.removeItem('visitCount');
         localStorage.removeItem('lastVisit');
-        
-        // Atualizar displays
+
+        // Atualiza interface
         updateVisitDisplay();
         updateLastVisitDisplay();
-        
+
         console.log('🔄 Contador resetado!');
-        
-        // Feedback visual
         alert('Contador resetado com sucesso!');
     }
 }
 
-// 9. Event listener no botão
+/* Botão de reset */
 const resetBtn = document.getElementById('reset-counter');
 if (resetBtn) {
     resetBtn.addEventListener('click', resetVisitCounter);
@@ -269,10 +229,9 @@ if (resetBtn) {
 
 
 
-
-
-
-// ===== DADOS DOS PROJETOS =====
+/* =========================================================
+   BASE DE DADOS DOS PROJETOS
+   ========================================================= */
 
 const projects = [
     {
@@ -355,55 +314,49 @@ const projects = [
     }
 ];
 
-// Variável global para controlar filtro atual
+/* Categoria atualmente selecionada */
 let currentCategory = 'all';
 
 
 
+/* =========================================================
+   RENDERIZAÇÃO DOS PROJETOS
+   ========================================================= */
 
-
-
-
-
-
-
-// ===== RENDERIZAR PROJETOS =====
-
+/* Renderiza os projetos no ecrã */
 function renderProjects(projectsToRender) {
     const grid = document.getElementById('projects-grid');
     const noResults = document.getElementById('no-results');
-    
-    // Limpar grid
+
+    // Limpa a grelha
     grid.innerHTML = '';
-    
-    // Se não há projetos, mostrar mensagem
+
+    // Se não há projetos, mostra mensagem
     if (projectsToRender.length === 0) {
         noResults.style.display = 'block';
         return;
     }
-    
+
     noResults.style.display = 'none';
-    
-    // Criar card para cada projeto
+
+    // Cria um card para cada projeto
     projectsToRender.forEach(project => {
         const card = createProjectCard(project);
         grid.appendChild(card);
     });
-    
-    // Atualizar contadores
+
+    // Atualiza contadores dos filtros
     updateCounters();
 }
 
-// Criar HTML de um card
+/* Cria o HTML de um card de projeto */
 function createProjectCard(project) {
     const card = document.createElement('div');
     card.className = 'project-card';
     card.dataset.id = project.id;
     card.dataset.category = project.category;
-    card.classList.add("project-card");
 
-
-    // Template string com HTML do card
+    // HTML interno do card
     card.innerHTML = `
         <img src="${project.image}" alt="${project.title}">
         <div class="project-card-body">
@@ -415,11 +368,14 @@ function createProjectCard(project) {
             </div>
         </div>
     `;
-    
+
     return card;
 }
 
-// Atualizar números nos botões de filtro
+/* =========================================================
+   CONTADORES DOS FILTROS
+   Atualiza os números que aparecem nos botões (ex: Web (3))
+   ========================================================= */
 function updateCounters() {
     const allCount = projects.length;
     const webCount = projects.filter(p => p.category === 'web').length;
@@ -427,6 +383,7 @@ function updateCounters() {
     const designCount = projects.filter(p => p.category === 'design').length;
     const presentationCount = projects.filter(p => p.category === 'presentation').length;
 
+    // Atualiza os números nos botões
     document.querySelector('[data-category="all"] .count').textContent = allCount;
     document.querySelector('[data-category="web"] .count').textContent = webCount;
     document.querySelector('[data-category="mobile"] .count').textContent = mobileCount;
@@ -434,7 +391,7 @@ function updateCounters() {
     document.querySelector('[data-category="presentation"] .count').textContent = presentationCount;
 }
 
-// Inicializar ao carregar página
+/* Renderiza projetos ao carregar a página */
 document.addEventListener('DOMContentLoaded', () => {
     renderProjects(projects);
     console.log('✅ Projetos renderizados!');
@@ -442,144 +399,139 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+/* =========================================================
+   SISTEMA DE FILTROS
+   ========================================================= */
 
-// ===== SISTEMA DE FILTROS =====
-
+/* Filtra os projetos por categoria */
 function filterProjects(category) {
-    // Guardar categoria atual
-    currentCategory = category;
-    
+    currentCategory = category; // Guarda categoria atual
+
     let filteredProjects;
-    
+
+    // Se categoria for "all", mostra tudo
     if (category === 'all') {
         filteredProjects = projects;
     } else {
         filteredProjects = projects.filter(project => project.category === category);
     }
-    
-    // Re-renderizar com projetos filtrados
+
+    // Re-renderiza com os projetos filtrados
     renderProjects(filteredProjects);
-    
+
     console.log(`Filtro aplicado: ${category} (${filteredProjects.length} projetos)`);
 }
 
 
 
-
-
-
-
-
-// ===== EVENT LISTENERS PARA FILTROS =====
-
+/* =========================================================
+   EVENT LISTENERS DOS BOTÕES DE FILTRO
+   ========================================================= */
 function setupFilterListeners() {
     const filterButtons = document.querySelectorAll('.filter-btn');
-    
+
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // Remover active de todos
+
+            // Remove "active" de todos os botões
             filterButtons.forEach(btn => btn.classList.remove('active'));
-            
-            // Adicionar active ao clicado
+
+            // Adiciona "active" ao botão clicado
             button.classList.add('active');
-            
-            // Obter categoria do data attribute
+
+            // Obtém categoria do botão
             const category = button.dataset.category;
-            
-            // Filtrar projetos
+
+            // Filtra projetos
             filterProjects(category);
         });
     });
 }
 
-// Adicionar ao DOMContentLoaded
+/* Ativa filtros ao carregar página */
 document.addEventListener('DOMContentLoaded', () => {
     renderProjects(projects);
-    setupFilterListeners();  // ADICIONAR ESTA LINHA
+    setupFilterListeners();
     console.log('✅ Filtros configurados!');
 });
 
 
 
+/* =========================================================
+   SISTEMA DE MODAL (ABRIR / FECHAR)
+   ========================================================= */
 
-
-
-
-// ===== SISTEMA DE MODAL =====
-
+/* Abre modal com detalhes do projeto */
 function openModal(projectId) {
-    // Encontrar projeto pelo ID
+    // Procura o projeto pelo ID
     const project = projects.find(p => p.id === projectId);
-    
+
     if (!project) {
         console.error('Projeto não encontrado!');
         return;
     }
-    
-    // Preencher conteúdo do modal
+
+    // Preenche conteúdo do modal
     const modalBody = document.getElementById('modal-body');
     modalBody.innerHTML = `
         <span class="modal-category">${project.category}</span>
         <h2>${project.title}</h2>
+
         <img src="${project.image}" alt="${project.title}" class="modal-image">
-        
+
         <div class="modal-section">
             <h3>Sobre o Projeto</h3>
             <p>${project.longDescription}</p>
         </div>
-        
+
         <div class="modal-section">
             <h3>Funcionalidades</h3>
             <ul>
                 ${project.features.map(feature => `<li>${feature}</li>`).join('')}
             </ul>
         </div>
-        
+
         <div class="modal-section">
             <h3>Tecnologias Utilizadas</h3>
             <div class="modal-tech">
                 ${project.technologies.map(tech => `<span class="tech-badge">${tech}</span>`).join('')}
             </div>
         </div>
-        
+
         <a href="${project.link}" target="_blank" class="modal-link">
             Ver Projeto Completo →
         </a>
     `;
-    
-    // Mostrar modal
+
+    // Mostra modal
     const modal = document.getElementById('project-modal');
     modal.classList.add('active');
-    
-    // Prevenir scroll do body
+
+    // Impede scroll do body
     document.body.style.overflow = 'hidden';
-    
+
     console.log(`Modal aberto: ${project.title}`);
 }
 
+/* Fecha modal */
 function closeModal() {
     const modal = document.getElementById('project-modal');
     modal.classList.remove('active');
-    
-    // Restaurar scroll
+
+    // Restaura scroll
     document.body.style.overflow = 'auto';
-    
+
     console.log('Modal fechado');
 }
-
-
-
-
-
-
-
-
-
-// ===== EVENT LISTENERS DO MODAL =====
+/* =========================================================
+   EVENT LISTENERS DO MODAL
+   ========================================================= */
 
 function setupModalListeners() {
-    // Event Delegation nos cards
     const grid = document.getElementById('projects-grid');
+
+    /* Abrir modal ao clicar num card
+       (Event Delegation — funciona mesmo com cards criados dinamicamente) */
     grid.addEventListener('click', (e) => {
         const card = e.target.closest('.project-card');
         if (card) {
@@ -587,20 +539,20 @@ function setupModalListeners() {
             openModal(projectId);
         }
     });
-    
-    // Fechar modal ao clicar no X
+
+    /* Botão X para fechar modal */
     const closeBtn = document.querySelector('.modal-close');
     closeBtn.addEventListener('click', closeModal);
-    
-    // Fechar modal ao clicar fora (no overlay)
+
+    /* Fechar modal ao clicar fora do conteúdo (overlay) */
     const modal = document.getElementById('project-modal');
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             closeModal();
         }
     });
-    
-    // Fechar modal com tecla Escape
+
+    /* Fechar modal com tecla ESC */
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             closeModal();
@@ -608,118 +560,81 @@ function setupModalListeners() {
     });
 }
 
-// Adicionar ao DOMContentLoaded
+/* Ativar modal ao carregar página */
 document.addEventListener('DOMContentLoaded', () => {
     renderProjects(projects);
     setupFilterListeners();
-    setupModalListeners();  // ADICIONAR ESTA LINHA
+    setupModalListeners();
     console.log('✅ Modal configurado!');
 });
 
 
 
+/* =========================================================
+   SISTEMA DE PESQUISA
+   ========================================================= */
 
-
-
-
-
-
-// ===== SISTEMA DE PESQUISA =====
-
+/* Pesquisa projetos por título, descrição ou tags */
 function searchProjects(query) {
-    // Converter query para lowercase
     const searchTerm = query.toLowerCase().trim();
-    
-    // Se pesquisa vazia, mostrar todos (respeitando filtro categoria)
+
+    // Se pesquisa vazia → mostrar projetos da categoria atual
     if (searchTerm === '') {
         filterProjects(currentCategory);
         return;
     }
-    
-    // Começar com projetos da categoria atual
-    let baseProjects = currentCategory === 'all' 
-        ? projects 
+
+    // Base da pesquisa depende do filtro ativo
+    const baseProjects = currentCategory === 'all'
+        ? projects
         : projects.filter(p => p.category === currentCategory);
-    
-    // Filtrar por termo de pesquisa
+
+    // Filtrar por título, descrição ou tags
     const results = baseProjects.filter(project => {
-        // Procurar em múltiplos campos
         const titleMatch = project.title.toLowerCase().includes(searchTerm);
         const descMatch = project.description.toLowerCase().includes(searchTerm);
-        const tagsMatch = project.tags.some(tag => 
+        const tagsMatch = project.tags.some(tag =>
             tag.toLowerCase().includes(searchTerm)
         );
-        
+
         return titleMatch || descMatch || tagsMatch;
     });
-    
+
     // Renderizar resultados
     renderProjects(results);
-    
+
     console.log(`Pesquisa: "${query}" - ${results.length} resultados`);
 }
 
 
 
+/* =========================================================
+   EVENT LISTENER PARA PESQUISA (com debounce)
+   ========================================================= */
 
-
-
-
-
-// ===== EVENT LISTENER PARA PESQUISA =====
-
-function setupSearchListener() {
-    const searchInput = document.getElementById('search-input');
-    
-    // Event 'input' dispara a cada tecla pressionada
-    searchInput.addEventListener('input', (e) => {
-        const query = e.target.value;
-        searchProjects(query);
-    });
-    
-    // Limpar pesquisa com Escape
-    searchInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            searchInput.value = '';
-            searchProjects('');
-            searchInput.blur();
-        }
-    });
-}
-
-// Adicionar ao DOMContentLoaded
-document.addEventListener('DOMContentLoaded', () => {
-    renderProjects(projects);
-    setupFilterListeners();
-    setupModalListeners();
-    setupSearchListener();  // ADICIONAR ESTA LINHA
-    console.log('✅ Pesquisa configurada!');
-});
-
-
-
-// ===== DEBOUNCE PARA PESQUISA =====
-
+/* Debounce — evita executar pesquisa a cada tecla, melhora performance */
 function debounce(func, delay) {
     let timeout;
-    return function(...args) {
+    return function (...args) {
         clearTimeout(timeout);
         timeout = setTimeout(() => func.apply(this, args), delay);
     };
 }
 
-// Criar versão debounced da pesquisa
+/* Versão otimizada da pesquisa */
 const debouncedSearch = debounce(searchProjects, 300);
 
+/* Ativa listener da pesquisa */
 function setupSearchListener() {
     const searchInput = document.getElementById('search-input');
-    
-    // Usar versão debounced
+
+    // Pesquisa com debounce
     searchInput.addEventListener('input', (e) => {
         const query = e.target.value;
         debouncedSearch(query);
     });
-    
+
+    // Limpar pesquisa com ESC
     searchInput.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             searchInput.value = '';
@@ -729,22 +644,37 @@ function setupSearchListener() {
     });
 }
 
+/* Ativar pesquisa ao carregar página */
+document.addEventListener('DOMContentLoaded', () => {
+    renderProjects(projects);
+    setupFilterListeners();
+    setupModalListeners();
+    setupSearchListener();
+    console.log('✅ Pesquisa configurada!');
+});
 
 
 
-
+/* =========================================================
+   ANIMAÇÃO DE SCROLL (revela elementos ao aparecerem no ecrã)
+   ========================================================= */
 
 const elementos = document.querySelectorAll('.scroll-anim');
 
+/* Verifica se elemento entrou na área visível */
 function animarScroll() {
-  elementos.forEach(el => {
-    const topo = el.getBoundingClientRect().top;
-    if (topo < window.innerHeight - 100) {
-      el.classList.add('visivel');
-    }
-  });
+    elementos.forEach(el => {
+        const topo = el.getBoundingClientRect().top;
+
+        // Quando o topo do elemento está a menos de 100px do fundo da janela
+        if (topo < window.innerHeight - 100) {
+            el.classList.add('visivel');
+        }
+    });
 }
 
+/* Ativar animação no scroll */
 window.addEventListener('scroll', animarScroll);
-animarScroll();
 
+/* Executar uma vez ao carregar página */
+animarScroll();

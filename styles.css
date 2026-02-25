@@ -1,70 +1,84 @@
-/* ===== RESET ===== */
+/* =========================================================
+   RESET — remove margens e padding padrão do navegador
+   ========================================================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
- 
-/* ===== VARIABLES (TEMA CLARO - padrão) ===== */
+
+/* =========================================================
+   VARIÁVEIS — TEMA CLARO (padrão)
+   ========================================================= */
 :root {
+    /* Cores principais */
     --bg-primary: #66ADD9;
     --bg-secondary: #AEDFF2;
- 
+
+    /* Texto */
     --text-primary: #224459;
     --text-secondary: #224459;
- 
+
+    /* Acentos */
     --accent: #224459;
     --accent-2: #A2E4F2;
- 
+
+    /* Bordas */
     --border: #224459;
- 
+
+    /* Espaçamento base */
     --spacing: 1rem;
- 
-    /* ===== ALIASES p/ componentes (o teu CSS usa estas vars) ===== */
+
+    /* Aliases usados no teu CSS */
     --primary: var(--accent);
     --secondary: var(--accent-2);
     --gray: var(--text-secondary);
     --light: var(--bg-primary);
     --dark: var(--text-primary);
- 
+
+    /* Cores de estado */
     --danger: #44d5ef;
     --success: #22c55e;
- 
-    /* ===== FOOTER tokens ===== */
+
+    /* Footer */
     --footer-bg: var(--text-primary);
     --footer-text: var(--bg-secondary);
 }
- 
-/* ===== TEMA ESCURO ===== */
+
+/* =========================================================
+   TEMA ESCURO — ativado quando o body recebe .dark-mode
+   ========================================================= */
 body.dark-mode {
-    /* Paleta Dark */
+    /* Fundo */
     --bg-primary: #011C40;
     --bg-secondary: #011126;
- 
+
     /* Texto */
     --text-primary: #ffffff;
     --text-secondary: #074973;
- 
+
     /* Acentos */
     --accent: #08678C;
     --accent-2: #011126;
- 
+
     /* Bordas */
     --border: #011a8c55;
- 
-    /* Aliases (seguem as vars acima, mas deixo explícito p/ clareza) */
+
+    /* Aliases atualizados */
     --primary: var(--accent);
     --secondary: var(--accent-2);
     --gray: var(--text-secondary);
     --light: var(--bg-secondary);
     --dark: var(--text-primary);
- 
-    /* Footer no dark: fundo roxo escuro, texto branco */
+
+    /* Footer no modo escuro */
     --footer-bg: var(--bg-secondary);
     --footer-text: #ffffff;
 }
- 
-/* ===== BASE STYLES ===== */
+
+/* =========================================================
+   ESTILOS BASE DO SITE
+   ========================================================= */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Comic Sans', cursive, sans-serif;
     line-height: 1.6;
@@ -72,18 +86,20 @@ body {
     background: var(--bg-primary);
     transition: background-color 0.3s ease, color 0.3s ease;
 }
- 
-/* ===== HEADER & NAVIGATION ===== */
+
+/* =========================================================
+   HEADER & NAVEGAÇÃO
+   ========================================================= */
 header {
     background: var(--bg-secondary);
     padding: var(--spacing);
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    position: sticky;
+    position: sticky; /* Fica preso no topo ao fazer scroll */
     top: 0;
     z-index: 100;
     border-bottom: 1px solid var(--border);
 }
- 
+
 nav {
     display: flex;
     justify-content: space-between;
@@ -91,136 +107,177 @@ nav {
     max-width: 1200px;
     margin: 0 auto;
 }
- 
+
 nav ul {
     display: flex;
     list-style: none;
     gap: 2rem;
 }
- 
+
 nav a {
     text-decoration: none;
     color: var(--text-primary);
     font-weight: 500;
     transition: color 0.3s;
 }
- 
+
 nav a:hover {
     color: var(--accent);
 }
  
-/* ===== HERO SECTION ===== */
+/* =========================================================
+   HERO SECTION — secção inicial com fundo em gradiente
+   ========================================================= */
 .hero {
     background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
     color: #ffffff;
     text-align: center;
     padding: 4rem var(--spacing);
     min-height: 60vh;
+
+    /* Centraliza verticalmente o conteúdo */
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
- 
+
 .hero h2 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
 }
- 
-/* ===== SECTIONS ===== */
+
+/* =========================================================
+   SEÇÕES GERAIS — estilo base para todas as secções
+   ========================================================= */
 section {
     max-width: 1200px;
     margin: 0 auto;
     padding: 3rem var(--spacing);
 }
- 
+
 section h2 {
     font-size: 2rem;
     margin-bottom: 2rem;
     color: var(--accent);
 }
- 
-/* ===== PROJECTS GRID ===== */
+
+/* =========================================================
+   PROJECTS GRID — grelha onde os cards aparecem
+   ========================================================= */
 .projects-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Mobile-first */
     gap: 2rem;
 }
- 
+
+/* Card individual do projeto */
 .project-card {
     background: var(--bg-secondary);
     color: var(--text-primary);
     padding: 2rem;
     border-radius: 10px;
+
+    /* Sombra suave */
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+    /* Animação suave */
     transition: transform 0.3s;
+
     border: 1px solid var(--border);
 }
- 
+
+/* Efeito hover básico (subida) */
 .project-card:hover {
     transform: translateY(-5px);
 }
- 
+
+/* =========================================================
+   BOTÃO DE TEMA (CLARO/ESCURO)
+   ========================================================= */
 .theme-toggle {
     background: var(--bg-secondary);
     border: 2px solid var(--border);
     border-radius: 50%;
     width: 50px;
     height: 50px;
+
     cursor: pointer;
     font-size: 1.5em;
+
     transition: all 0.3s ease;
+
+    /* Para posicionar os ícones dentro */
     position: relative;
 }
- 
+
+/* Efeito hover no botão */
 .theme-toggle:hover {
     transform: scale(1.1);
 }
- 
+
+/* Ícones do botão (sol e lua) */
 .icon-light,
 .icon-dark {
     position: absolute;
     top: 50%;
     left: 50%;
+
+    /* Centraliza o ícone */
     transform: translate(-50%, -50%);
+
     transition: opacity 0.3s ease;
 }
- 
-/* Mostrar sol em modo claro, lua em modo escuro */
+
+/* Mostrar apenas o sol no modo claro */
 body:not(.dark-mode) .icon-dark {
     opacity: 0;
 }
- 
+
+/* Mostrar apenas a lua no modo escuro */
 body.dark-mode .icon-light {
     opacity: 0;
 }
  
-/* ===== FOOTER ===== */
+/* =========================================================
+   FOOTER — rodapé do site
+   ========================================================= */
 footer {
-    background: var(--footer-bg);
-    color: var(--footer-text);
+    background: var(--footer-bg);   /* Cor de fundo depende do tema */
+    color: var(--footer-text);      /* Cor do texto depende do tema */
     text-align: center;
     padding: 2rem var(--spacing);
 }
- 
-/* ===== RESPONSIVE - TABLET ===== */
+
+/* =========================================================
+   RESPONSIVE — TABLET (>= 768px)
+   ========================================================= */
 @media (min-width: 768px) {
+
+    /* Grelha de projetos passa a 2 colunas */
     .projects-grid {
         grid-template-columns: repeat(2, 1fr);
     }
- 
+
+    /* Título maior no hero */
     .hero h2 {
         font-size: 3rem;
     }
 }
- 
-/* ===== RESPONSIVE - DESKTOP ===== */
+
+/* =========================================================
+   RESPONSIVE — DESKTOP (>= 1024px)
+   ========================================================= */
 @media (min-width: 1024px) {
+
+    /* Grelha de projetos passa a 3 colunas */
     .projects-grid {
         grid-template-columns: repeat(3, 1fr);
     }
 }
- 
-/* ===== CLOCK ===== */
+
+/* =========================================================
+   CLOCK — Relógio digital
+   ========================================================= */
 .clock-container {
     display: flex;
     flex-direction: column;
@@ -228,25 +285,29 @@ footer {
     gap: 1rem;
     margin: 2rem 0;
 }
- 
+
 .clock {
     font-size: 3em;
     font-weight: bold;
-    font-family: 'Courier New', monospace;
+    font-family: 'Courier New', monospace; /* Estilo digital */
     background: var(--bg-secondary);
     padding: 1.5rem 3rem;
     border-radius: 15px;
+
+    /* Sombra suave */
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
     letter-spacing: 0.1em;
     border: 1px solid var(--border);
 }
- 
+
 .clock span {
     display: inline-block;
-    min-width: 0.6em;
+    min-width: 0.6em; /* Mantém largura uniforme */
     text-align: center;
 }
- 
+
+/* Botão 12h/24h */
 .format-toggle {
     background: var(--accent);
     color: white;
@@ -255,74 +316,87 @@ footer {
     border-radius: 25px;
     cursor: pointer;
     font-weight: 600;
+
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
- 
+
 .format-toggle:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
 }
- 
-/* ===== VISIT COUNTER ===== */
+
+/* =========================================================
+   VISIT COUNTER — Contador de visitas
+   ========================================================= */
 .visit-counter {
     background: var(--bg-secondary);
     padding: 2rem;
     border-radius: 15px;
     margin: 2rem 0;
     text-align: center;
+
+    /* Sombra suave */
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
     border: 1px solid var(--border);
 }
- 
+
 .visit-counter p {
     margin: 0.5rem 0;
     font-size: 1.1em;
 }
- 
+
 .visit-counter strong {
     color: var(--accent);
-    font-size: 1.5em;
+    font-size: 1.5em; /* Destaque do número */
 }
- 
+
 .last-visit {
     color: var(--text-secondary);
     font-size: 0.9em;
 }
- 
-/* ===== RESET BUTTON ===== */
+
+/* =========================================================
+   RESET BUTTON — Botão de reset do contador
+   ========================================================= */
 .reset-btn {
     margin-top: 1rem;
-    background: #ef4444;
+    background: #446cef; /* Vermelho */
     color: white;
     border: none;
     padding: 0.5rem 1.5rem;
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
+
     transition: transform 0.3s ease, filter 0.3s ease;
 }
- 
+
 .reset-btn:hover {
     filter: brightness(0.95);
     transform: translateY(-2px);
 }
  
-/* Controles <--------- aqui*/
+/* =========================================================
+   CONTROLES (Filtros + Pesquisa)
+   ========================================================= */
 .projects-controls {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 20px;
     margin-bottom: 30px;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Permite quebrar em ecrãs pequenos */
 }
- 
+
+/* Grupo de botões de filtro */
 .filter-buttons {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
 }
- 
+
+/* Botão individual de filtro */
 .filter-btn {
     padding: 10px 20px;
     border: 2px solid var(--border);
@@ -332,18 +406,21 @@ footer {
     font-weight: 600;
     transition: all 0.3s;
 }
- 
+
+/* Hover do botão */
 .filter-btn:hover {
     border-color: var(--primary);
     transform: translateY(-2px);
 }
- 
+
+/* Botão ativo (categoria selecionada) */
 .filter-btn.active {
     background: var(--primary);
     color: white;
     border-color: var(--primary);
 }
- 
+
+/* Contador dentro do botão */
 .filter-btn .count {
     background: rgba(0,0,0,0.1);
     padding: 2px 8px;
@@ -351,12 +428,15 @@ footer {
     font-size: 0.85em;
     margin-left: 5px;
 }
- 
+
+/* Contador quando o botão está ativo */
 .filter-btn.active .count {
     background: rgba(255,255,255,0.2);
 }
- 
-/* Search */
+
+/* =========================================================
+   SEARCH BOX — Caixa de pesquisa
+   ========================================================= */
 .search-box input {
     padding: 12px 20px;
     border: 2px solid var(--border);
@@ -365,52 +445,61 @@ footer {
     font-size: 1em;
     transition: border-color 0.3s;
 }
- 
+
 .search-box input:focus {
     outline: none;
     border-color: var(--primary);
 }
- 
-/* Grid de Projetos */
+
+/* =========================================================
+   PROJECTS GRID — Grelha de projetos
+   ========================================================= */
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 25px;
     margin-top: 30px;
 }
- 
-/* Card de Projeto (override final - agora compatível com tema) */
+
+/* =========================================================
+   PROJECT CARD — Card individual do projeto
+   ========================================================= */
 .project-card {
     background: var(--bg-secondary);
     color: var(--text-primary);
     border-radius: 15px;
-    overflow: hidden;
+    overflow: hidden; /* Garante que a imagem respeita o border-radius */
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     transition: all 0.3s;
     cursor: pointer;
 }
- 
+
+/* Hover do card */
 .project-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);
 }
- 
+
+/* Imagem do card */
 .project-card img {
     width: 100%;
     height: 200px;
-    object-fit: cover;
+    object-fit: cover; /* Mantém proporção sem distorcer */
 }
- 
+
+/* Corpo do card */
 .project-card-body {
     padding: 20px;
     color: var(--text-primary);
 }
- 
+
+/* Título do card */
 .project-card-body h3 {
     color: var(--text-primary);
     margin-bottom: 10px;
 }
- 
+
+/* Categoria do projeto */
 .project-category {
     display: inline-block;
     background: var(--primary);
@@ -420,18 +509,21 @@ footer {
     font-size: 0.85em;
     margin-bottom: 10px;
 }
- 
+
+/* Descrição do projeto */
 .project-description {
     color: var(--text-primary);
     margin-bottom: 15px;
 }
- 
+
+/* Tags do projeto */
 .project-tags {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
 }
- 
+
+/* Tag individual */
 .tag {
     background: var(--light);
     color: var(--dark);
@@ -439,33 +531,39 @@ footer {
     border-radius: 10px;
     font-size: 0.8em;
 }
- 
-/* No Results */
+
+/* =========================================================
+   NO RESULTS — Mensagem quando não há projetos
+   ========================================================= */
 .no-results {
     text-align: center;
     padding: 60px 20px;
     color: var(--gray);
     font-size: 1.2em;
 }
- 
-/* Modal (básico por agora) */
+
+/* =========================================================
+   MODAL — Janela de detalhes do projeto
+   ========================================================= */
 .modal {
-    display: none;
+    display: none; /* Escondido por padrão */
     position: fixed;
     z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.8); /* Fundo escuro transparente */
 }
- 
+
+/* Modal visível */
 .modal.active {
     display: flex;
     align-items: center;
     justify-content: center;
 }
- 
+
+/* Conteúdo do modal */
 .modal-content {
     background: var(--bg-secondary);
     color: var(--text-primary);
@@ -474,10 +572,11 @@ footer {
     max-width: 800px;
     width: 90%;
     max-height: 90vh;
-    overflow-y: auto;
+    overflow-y: auto; /* Scroll interno */
     position: relative;
 }
- 
+
+/* Botão de fechar */
 .modal-close {
     position: absolute;
     right: 20px;
@@ -486,71 +585,19 @@ footer {
     cursor: pointer;
     color: var(--gray);
 }
- 
+
 .modal-close:hover {
     color: var(--danger);
 }
-
-/* Animação ao renderizar cards */
+/* =========================================================
+   ANIMAÇÃO AO RENDERIZAR CARDS (fade + slide)
+   ========================================================= */
 .project-card {
     animation: fadeInUp 0.5s ease forwards;
-    opacity: 0;
-}
-@import url("https://unpkg.com/papercss@1.9.2/dist/paper.css") layer(csspaper);
-
-.card-list:has(li:hover) li:not(:hover) {
-  filter: blur(4px)
+    opacity: 0; /* Começa invisível */
 }
 
-/* Demo style */
-
-h1 {
-  font-size: 2.2rem;
-  color: var(--primary-color);
-  margin: 0 0 2rem;  
-}
-
-h2 {
-  font-size: 1.2rem;
-  margin: 0;
-}
-
-.card-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1rem;
-  margin: 0;
-  padding: 0;
-}
-
-li {
-  margin: 0;
-  transition: all 150ms ease-in-out;
-}
-
-li::before {
-  content: "";
-}
-
-img {
-  display: block;
-  min-width: 0;
-  width: 100%;
-  margin-bottom: .6rem;
-}
-
-a {
-  background: none;
-}
-
-.paper {
-  padding: 1.5rem;
-}
-
-li a {
-  padding-inline-start: 1rem;
-}
- 
+/* Keyframes da animação */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -561,23 +608,91 @@ li a {
         transform: translateY(0);
     }
 }
- 
-/* Delay progressivo para cada card */
+
+/* Delays progressivos para cada card (efeito cascata) */
 .project-card:nth-child(1) { animation-delay: 0.1s; }
 .project-card:nth-child(2) { animation-delay: 0.2s; }
 .project-card:nth-child(3) { animation-delay: 0.3s; }
 .project-card:nth-child(4) { animation-delay: 0.4s; }
 .project-card:nth-child(5) { animation-delay: 0.5s; }
 .project-card:nth-child(6) { animation-delay: 0.6s; }
- 
+
+/* =========================================================
+   PAPERCSS (biblioteca externa)
+   ========================================================= */
+@import url("https://unpkg.com/papercss@1.9.2/dist/paper.css") layer(csspaper);
+
+/* =========================================================
+   EFEITO “TODOS MENOS EU” (versão antiga — UL/LI)
+   Mantido caso uses noutro sítio
+   ========================================================= */
+.card-list:has(li:hover) li:not(:hover) {
+    filter: blur(4px);
+}
+
+/* =========================================================
+   ESTILOS DEMO (não usados no teu portfólio principal)
+   ========================================================= */
+h1 {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin: 0 0 2rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.card-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    margin: 0;
+    transition: all 150ms ease-in-out;
+}
+
+li::before {
+    content: "";
+}
+
+img {
+    display: block;
+    min-width: 0;
+    width: 100%;
+    margin-bottom: .6rem;
+}
+
+a {
+    background: none;
+}
+
+.paper {
+    padding: 1.5rem;
+}
+
+li a {
+    padding-inline-start: 1rem;
+}
+
+/* =========================================================
+   ANIMAÇÃO DE SAÍDA (não usada ainda, mas preparada)
+   ========================================================= */
 @keyframes fadeOut {
     to {
         opacity: 0;
         transform: translateY(-20px);
     }
 }
- 
-/* Modal Overlay */
+
+/* =========================================================
+   MODAL — Overlay (fundo escuro)
+   ========================================================= */
 .modal {
     display: none;
     position: fixed;
@@ -586,32 +701,42 @@ li a {
     top: 0;
     width: 100%;
     height: 100%;
+
     background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(5px);
+
     animation: fadeIn 0.3s ease;
 }
- 
+
+/* Modal visível */
 .modal.active {
     display: flex;
     align-items: center;
     justify-content: center;
 }
- 
-/* Modal Content (override final - compatível com tema) */
+
+/* =========================================================
+   MODAL CONTENT — Caixa principal
+   ========================================================= */
 .modal-content {
     background: var(--bg-secondary);
     color: var(--text-primary);
+
     padding: 40px;
     border-radius: 20px;
+
     max-width: 800px;
     width: 90%;
     max-height: 90vh;
     overflow-y: auto;
+
     position: relative;
+
     animation: slideUp 0.4s ease;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
- 
+
+/* Animação do modal */
 @keyframes slideUp {
     from {
         opacity: 0;
@@ -622,74 +747,86 @@ li a {
         transform: translateY(0);
     }
 }
- 
-/* Close Button */
+
+/* =========================================================
+   BOTÃO DE FECHAR MODAL
+   ========================================================= */
 .modal-close {
     position: absolute;
     right: 20px;
     top: 20px;
+
     font-size: 2.5em;
     cursor: pointer;
     color: var(--gray);
+
     line-height: 1;
     transition: all 0.3s;
+
     width: 40px;
     height: 40px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     border-radius: 50%;
 }
- 
+
 .modal-close:hover {
     background: var(--danger);
     color: white;
     transform: rotate(90deg);
 }
- 
-/* Modal Body */
+
+/* =========================================================
+   MODAL BODY — Conteúdo interno
+   ========================================================= */
 #modal-body h2 {
     color: var(--primary);
     margin-bottom: 10px;
 }
- 
+
 .modal-category {
     display: inline-block;
     background: var(--primary);
     color: white;
+
     padding: 8px 20px;
     border-radius: 20px;
+
     margin-bottom: 20px;
 }
- 
+
 .modal-image {
     width: 100%;
     border-radius: 15px;
     margin-bottom: 25px;
 }
- 
+
 .modal-section {
     margin: 25px 0;
 }
- 
+
 .modal-section h3 {
     color: var(--dark);
     margin-bottom: 15px;
+
     border-left: 4px solid var(--primary);
     padding-left: 15px;
 }
- 
+
 .modal-section ul {
     list-style: none;
     padding: 0;
 }
- 
+
 .modal-section ul li {
     padding: 8px 0;
     padding-left: 25px;
     position: relative;
 }
- 
+
 .modal-section ul li::before {
     content: '✓';
     position: absolute;
@@ -697,54 +834,59 @@ li a {
     color: var(--success);
     font-weight: bold;
 }
- 
+
 .modal-tech {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
 }
- 
+
 .tech-badge {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     color: white;
+
     padding: 8px 16px;
     border-radius: 20px;
+
     font-size: 0.9em;
 }
- 
+
 .modal-link {
     display: inline-block;
     background: var(--primary);
     color: white;
+
     padding: 12px 30px;
     border-radius: 25px;
     text-decoration: none;
+
     margin-top: 20px;
     transition: all 0.3s;
 }
- 
+
 .modal-link:hover {
     background: var(--secondary);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 }
- 
-/* Highlight no input quando está ativo */
+
+/* =========================================================
+   SEARCH BOX — Ícone + foco
+   ========================================================= */
 .search-box input:focus {
     outline: none;
     border-color: var(--primary);
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
- 
-/* Ícone de pesquisa dentro do input */
+
 .search-box {
     position: relative;
 }
- 
+
 .search-box input {
-    padding-left: 45px;
+    padding-left: 45px; /* Espaço para o ícone */
 }
- 
+
 .search-box::before {
     content: '🔍';
     position: absolute;
@@ -753,57 +895,62 @@ li a {
     transform: translateY(-50%);
     font-size: 1.2em;
 }
- 
-/* Animação quando não há resultados */
+
+/* =========================================================
+   ANIMAÇÃO — Quando não há resultados
+   ========================================================= */
 .no-results {
     animation: shake 0.5s ease;
 }
- 
+
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-10px); }
     75% { transform: translateX(10px); }
 }
 
-/* Animação quando se entra na página */
+/* =========================================================
+   ANIMAÇÃO DE ENTRADA (títulos, textos)
+   ========================================================= */
 .entrada {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: entrar 3s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: entrar 3s ease forwards;
 }
 
 @keyframes entrar {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
+/* =========================================================
+   ANIMAÇÃO AO FAZER SCROLL
+   ========================================================= */
 .scroll-anim {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: 0.7s ease;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 0.7s ease;
 }
 
 .scroll-anim.visivel {
-  opacity: 1;
-  transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
 }
 
-
-/* Animação para os  projetos */
-
-/* --- EFEITO TODOS MENOS EU --- */
-
+/* =========================================================
+   EFEITO “TODOS MENOS EU” — versão final
+   ========================================================= */
 .projects-grid:hover .project-card {
-  opacity: 0.4;
-  filter: blur(3px);
-  transform: scale(0.95);
-  transition: all 0.3s ease;
+    opacity: 0.4;
+    filter: blur(3px);
+    transform: scale(0.95);
+    transition: all 0.3s ease;
 }
 
 .projects-grid .project-card:hover {
-  opacity: 1;
-  filter: blur(0);
-  transform: scale(1.05);
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1.05);
 }

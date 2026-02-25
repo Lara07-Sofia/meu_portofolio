@@ -2,134 +2,151 @@
 <html lang="pt">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio de Lara Santos - Desenvolvedor Web">
+    <meta charset="UTF-8">          <!-- Permite acentos e caracteres especiais -->
 
-    <title>Lara Santos - Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- Faz o site ser visto em telemóveis -->
 
-    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Portfolio de Lara Santos - Desenvolvedor Web">    <!-- Descrição que aparece no Google -->
+
+    <title>Lara Santos - Portfolio</title>      <!-- Título do separador -->
+
+    <link rel="stylesheet" href="styles.css">       <!-- Liga o CSS -->
 </head>
 
 <body>
-    <!-- HEADER -->
+
+    <!-- ================= HEADER ================= -->
     <header>
-        <nav>
+        <nav> 
+            <!-- Nome no topo com animação -->
             <h1 class="entrada">Lara Santos</h1>
 
+            <!-- Menu de navegação -->
             <ul>
                 <li><a href="#about">Sobre Mim</a></li>
                 <li><a href="#projects">Projetos</a></li>
                 <li><a href="#contact">Contacto</a></li>
             </ul>
-        <button id="theme-toggle" class="theme-toggle" aria-label="Alternar tema">
-        <span class="icon-light">☀️</span>
-        <span class="icon-dark">🌙</span>
-        </button>
+
+            <!-- Botão para alternar temas-->
+            <button id="theme-toggle" class="theme-toggle" aria-label="Alternar tema">
+                <span class="icon-light">☀️</span>
+                <span class="icon-dark">🌙</span>
+            </button>
         </nav>
     </header>
 
-    <!-- HERO / INTRO -->
+    <!-- ================= HERO / INTRO ================= -->
     <section class="hero scroll-anim">
+        <!-- Título principal -->
+        <h2 class="entrada"> Olá! </h2>
+        <h2 class="entrada">Sou a Lara Santos 😁</h2>
 
-        <h2 class="entrada">Olá! Sou a Lara Santos 😁</h2>
+        <!-- Subtítulo -->
         <p>Desenvolvedora Web | Estudante | Criativa</p>
-
     </section>
 
-
-    <!-- SOBRE MIM -->
+    <!-- ================= SOBRE MIM ================= -->
     <section id="about" class="about scroll-anim">
 
+        <!-- Título da secção -->
         <h2 class="entrada">Sobre Mim</h2>
+
+        <!-- Texto de apresentação -->
         <p class="entrada">Sou estudante do curso profissional de Programador se Informática.</p>
 
-        <!-- RELÓGIO -->
-    <div class="clock-container">
-        <div class="clock">
-            <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
-        </div>
-        <button id="format-toggle" class="format-toggle">12h/24h</button>
-    </div>
+        <!-- ===== Relógio ===== -->
+        <div class="clock-container">
+            <div class="clock">
+                <!-- Horas atualizadas pelo JavaScript -->
+                <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+            </div>
 
-     <!-- CONTADOR DE VISITAS -->
-    <div class="visit-counter">
-        <p class="entrada">👋 Visitaste esta página <strong id="visit-count">0</strong> vezes</p>
-        <p class="last-visit">Última visita: <span id="last-visit">Primeira vez!</span></p>
-        <button id="reset-counter" class="reset-btn">🔄 Reset</button>
-    </div>
+            <!-- Botão para alternar entre 12h e 24h -->
+            <button id="format-toggle" class="format-toggle">12h/24h</button>
+        </div>
+
+        <!-- ===== Contador de visitas ===== -->
+        <div class="visit-counter">
+            <p class="entrada">👋 Visitaste esta página <strong id="visit-count">0</strong> vezes</p>
+
+            <!-- Mostra a última visita guardada no localStorage -->
+            <p class="last-visit">Última visita: <span id="last-visit">Primeira vez!</span></p>
+
+            <!-- Botão para limpar o contador -->
+            <button id="reset-counter" class="reset-btn">🔄 Reset</button>
+        </div>
+
     </section>
 
-    <!-- PROJETOS -->
-    <section id="projects" class="projectsscroll-anim">
+    <!-- ================= PROJETOS ================= -->
+    <section id="projects" class="projects scroll-anim">
 
+        <!-- Título da secção -->
         <h2 class="entrada">Projetos</h2>
 
-    <!-- Barra de controlo (filtros + pesquisa) -->
+        <!-- ===== Filtros + Pesquisa ===== -->
         <div class="projects-controls">
+
+            <!-- Botões de filtro -->
             <div class="filter-buttons">
-                <button class="filter-btn active" data-category="all">
-                    Todos <span class="count">0</span>
-                </button>
-                <button class="filter-btn" data-category="web">
-                    Web <span class="count">0</span>
-                </button>
-                <button class="filter-btn" data-category="mobile">
-                    Mobile <span class="count">0</span>
-                </button>
-                <button class="filter-btn" data-category="design">
-                    Design <span class="count">0</span>
-                </button>
-                <button class="filter-btn" data-category="presentation">
-                    Presentation <span class="count">0</span>
-                </button>
+                <button class="filter-btn active" data-category="all">Todos <span class="count">0</span></button>
+                <button class="filter-btn" data-category="web">Web <span class="count">0</span></button>
+                <button class="filter-btn" data-category="mobile">Mobile <span class="count">0</span></button>
+                <button class="filter-btn" data-category="design">Design <span class="count">0</span></button>
+                <button class="filter-btn" data-category="presentation">Presentation <span class="count">0</span></button>
             </div>
-            
+
+            <!-- Barra de pesquisa -->
             <div class="search-box">
                 <input type="text" id="search-input" placeholder="Pesquisar projetos...">
             </div>
+
         </div>
-        
-        <!-- Grid onde os projetos vão aparecer -->
+
+        <!-- ===== Grelha onde os cards aparecem ===== -->
         <div id="projects-grid" class="projects-grid">
-            <!-- Os cards serão inseridos aqui via JavaScript -->
+            <!-- Os cards são criados dinamicamente no script.js -->
         </div>
-        
+
         <!-- Mensagem quando não há resultados -->
         <div id="no-results" class="no-results" style="display: none;">
             <p>Nenhum projeto encontrado 😕</p>
         </div>
+
     </section>
 
-    <!-- Modal (fora da secção) -->
+    <!-- ================= MODAL ================= -->
+
+    <!-- Janela que abre quando clicas num projeto -->
     <div id="project-modal" class="modal">
         <div class="modal-content">
+
+            <!-- Botão para fechar -->
             <span class="modal-close">x</span>
-            <div id="modal-body">
-                <!-- Conteúdo do modal será inserido aqui -->
-            </div>
+
+            <!-- Conteúdo do projeto selecionado -->
+            <div id="modal-body"></div>
         </div>
     </div>
 
-    </section>
-
-    <!-- CONTACTO -->
+    <!-- ================= CONTACTO ================= -->
     <section id="contact" class="contact scroll-anim">
-
         <h2 class="entrada">Contactos</h2>
+
+        <!-- Links dos contacto -->
         <p>GitHub: https://github.com/Lara07-Sofia</p>
         <p>Email: a19851@aealvalade.edu.pt</p>
-
     </section>
 
-    <!-- FOOTER -->
+    <!-- ================= FOOTER ================= -->
     <footer>
-
         <p>©<span id="year"></span> Lara Santos. Feito com ❤️ e ☕</p>
-        
     </footer>
 
+    <!-- Liga o JavaScript -->
     <script src="script.js"></script>
+
 </body>
 
 </html>
