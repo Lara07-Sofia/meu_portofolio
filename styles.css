@@ -490,11 +490,65 @@ footer {
 .modal-close:hover {
     color: var(--danger);
 }
- 
+
 /* Animação ao renderizar cards */
 .project-card {
     animation: fadeInUp 0.5s ease forwards;
     opacity: 0;
+}
+@import url("https://unpkg.com/papercss@1.9.2/dist/paper.css") layer(csspaper);
+
+.card-list:has(li:hover) li:not(:hover) {
+  filter: blur(4px)
+}
+
+/* Demo style */
+
+h1 {
+  font-size: 2.2rem;
+  color: var(--primary-color);
+  margin: 0 0 2rem;  
+}
+
+h2 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.card-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin: 0;
+  transition: all 150ms ease-in-out;
+}
+
+li::before {
+  content: "";
+}
+
+img {
+  display: block;
+  min-width: 0;
+  width: 100%;
+  margin-bottom: .6rem;
+}
+
+a {
+  background: none;
+}
+
+.paper {
+  padding: 1.5rem;
+}
+
+li a {
+  padding-inline-start: 1rem;
 }
  
 @keyframes fadeInUp {
@@ -709,4 +763,47 @@ footer {
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-10px); }
     75% { transform: translateX(10px); }
+}
+
+/* Animação quando se entra na página */
+.entrada {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: entrar 3s ease forwards;
+}
+
+@keyframes entrar {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scroll-anim {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: 0.7s ease;
+}
+
+.scroll-anim.visivel {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* Animação para os  projetos */
+
+/* --- EFEITO TODOS MENOS EU --- */
+
+.projects-grid:hover .project-card {
+  opacity: 0.4;
+  filter: blur(3px);
+  transform: scale(0.95);
+  transition: all 0.3s ease;
+}
+
+.projects-grid .project-card:hover {
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(1.05);
 }

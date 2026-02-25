@@ -400,7 +400,9 @@ function createProjectCard(project) {
     card.className = 'project-card';
     card.dataset.id = project.id;
     card.dataset.category = project.category;
-    
+    card.classList.add("project-card");
+
+
     // Template string com HTML do card
     card.innerHTML = `
         <img src="${project.image}" alt="${project.title}">
@@ -726,4 +728,23 @@ function setupSearchListener() {
         }
     });
 }
+
+
+
+
+
+
+const elementos = document.querySelectorAll('.scroll-anim');
+
+function animarScroll() {
+  elementos.forEach(el => {
+    const topo = el.getBoundingClientRect().top;
+    if (topo < window.innerHeight - 100) {
+      el.classList.add('visivel');
+    }
+  });
+}
+
+window.addEventListener('scroll', animarScroll);
+animarScroll();
 
