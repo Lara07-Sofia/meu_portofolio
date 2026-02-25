@@ -1,0 +1,432 @@
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <title>Japão</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive;
+      background: radial-gradient(circle, #d0ebff 0%, #a8d0ff 30%, #4a90e2 60%, #000000 250%);
+      color: #333;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #1B3A6B;
+      padding: 10px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo svg {
+      height: 50px;
+    }
+
+    ul.menu {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      padding: 0;
+      margin: 0;
+    }
+
+      ul.menu {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul.menu li {
+      position: relative;
+    }
+
+    ul.menu li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: 0.3s;
+      display: block;
+    }
+
+    ul.menu li a:hover {
+      background-color: #5a8edc;
+    }
+
+    ul.menu li ul.submenu {
+      display: none;
+      position: absolute;
+      top: 38px;
+      left: 0;
+      background-color: #1B3A6B;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      min-width: 150px;
+      border-radius: 0 0 8px 8px;
+      z-index: 10;
+    }
+
+    ul.menu li:hover ul.submenu {
+      display: block;
+    }
+
+    ul.submenu li a {
+      padding: 10px;
+      font-size: 14px;
+      border-bottom: 1px solid #5a8edc;
+    }
+
+    ul.submenu li:last-child a {
+      border-bottom: none;
+    }
+
+    h1 {
+      margin: 30px 0 10px;
+      font-size: 48px;
+    }
+
+    h1 span:nth-child(1) { color: red; }
+    h1 span:nth-child(2) { color: white; }
+    h1 span:nth-child(3) { color: red; }
+    h1 span:nth-child(4) { color: white; }
+    h1 span:nth-child(5) { color: red; }
+    h2 {
+      margin-top: 40px;
+      color: #003366;
+    }
+
+    h3 {
+      margin-bottom: 30px;
+	  color: #000000;
+    }
+
+	h4 {
+		color: #000000:
+	}
+	
+    p {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      line-height: 1.5;
+      font-size: 1.1em;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto 50px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .card {
+      position: relative;
+      width: 300px;
+      height: 400px;
+      background: #fff;
+      transform-style: preserve-3d;
+      transform: perspective(2000px);
+      transition: 1s;
+      box-shadow: inset 100px 0 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .card:hover {
+      z-index: 1111;
+      transform: perspective(2000px) rotate(-10deg);
+      box-shadow: inset 20px 0 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .card .img-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border: 1px solid #000;
+      box-sizing: border-box;
+      transform-origin: left;
+      z-index: 1;
+      transition: 1s;
+    }
+
+    .card .img-container img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .card:hover .img-container {
+      transform: rotateY(-135deg);
+    }
+
+    .card .card-details {
+      position: absolute;
+      left: 0;
+      top: 0;
+      box-sizing: border-box;
+      padding: 20px;
+      color: #000;
+      text-align: left;
+    }
+
+    .card .card-details h2 {
+      margin: 0;
+      padding: 0.5em 0;
+      text-transform: uppercase;
+      font-size: 2em;
+      color: #0066cc;
+    }
+
+    .card .card-details p {
+      margin: 0;
+      padding: 0;
+      line-height: 25px;
+      font-size: 1.1em;
+    }
+
+    #dateTime {
+      margin: 40px 0;
+      font-size: 1.2em;
+      color: #003366;
+    }
+
+    footer {
+      background-color: #1B3A6B;
+      color: white;
+      padding: 20px 0;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">
+      <!-- Logo LS SVG -->
+      <svg width="80" height="60" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="10" y="60" font-family="'Georgia', serif" font-size="64" font-weight="600" fill="#ffffff" letter-spacing="8">L</text>
+        <text x="58" y="60" font-family="'Georgia', serif" font-size="64" font-weight="300" fill="#aacbff" letter-spacing="8">S</text>
+        <line x1="10" y1="70" x2="110" y2="70" stroke="#aacbff" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <ul class="menu">
+      <li><a href="Início.html">Início</a></li>
+      <li>
+        <a href="#">Cidades</a>
+        <ul class="submenu">
+          <li><a href="Paris.html">Paris</a></li>
+          <li><a href="Nova York.html">Nova York</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">Países</a>
+        <ul class="submenu">
+          <li><a href="Japão.html">Japão</a></li>
+		  <li><a href="Alemanha.html">Alemanha</a></li>
+        </ul>
+  </nav>
+  
+ <h1>
+    <span>J</span>
+	<span>A</span>
+	<span>P</span>
+	<span>Ã</span>
+	<span>O</span>
+  </h1>
+
+  <h3 align="center">Um país onde a tradição e a tecnologia convivem em harmonia.</h3>
+
+  <h2>Principais Atrações:</h2>
+  <div class="container">
+    <div class="card">
+      <div class="img-container">
+        <img src="toquio.JPEG" alt="Tóquio">
+      </div>
+      <div class="card-details">
+        <h2>Tóquio</h2>
+        <p> Tóquio é a capital do Japão e uma das 47 prefeituras do país, com mais de 13 milhões de habitantes. 
+		É uma capital moderna e vibrante, com arranha-céus, templos antigos e muita cultura pop.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="img-container">
+        <img src="monte.JPEG" alt="Monte Fuji">
+      </div>
+      <div class="card-details">
+        <h2>Monte Fuji</h2>
+        <p>O Monte Fuji é a montanha mais alta do Japão. É também a mais conhecida e uma espécie de símbolo do país.
+		Esta montanha é um vulcão ativo, porém com baixo grau de possibilidade de entrar em erupção.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="img-container">
+        <img src="templo.JPEG" alt="Templos de Quioto">
+      </div>
+      <div class="card-details">
+        <h2>Quioto</h2>
+        <p>Quioto é uma cidade milenar, onde o passado permanece intacto no presente.
+		É Antiga capital japonesa, famosa pelos seus templos e jardins.
+		Quioto é ocasionalmente apelidada de "Velha Capital" e "Cidade dos Samurais ".</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="img-container">
+        <img src="hiroshima.JPEG" alt="Hiroshima">
+      </div>
+      <div class="card-details">
+        <h2>Hiroshima</h2>
+        <p>Cidade marcada pela paz e memória histórica após a Segunda Guerra Mundial.
+		É cortada pelo rio Ota, cujos seis canais dividem a cidade em ilhas. 
+		Cresceu em torno de um castelo e só recebeu o estatuto de cidade em 1589.</p>
+      </div>
+    </div>
+	
+	<div class="card">
+      <div class="img-container">
+        <img src="castelo.JPEG" alt="Castelo de Himeji">
+      </div>
+      <div class="card-details">
+        <h2>Castelo de Himeji</h2>
+        <p> O Castelo de Himeji é muito conhecido devido ao seu brilhante exterior branco e forma de garça-real a iniciar o voo. 
+		É um complexo palaciano com 83 edifícios de madeira e é também um dos "Três Famosos Castelos" do Japão e o mais visitado do país. </p>
+      </div>
+    </div>
+	
+  </div>
+
+  <h2>Comida Típica:</h2>
+  <div class="container">
+    <div class="card">
+      <div class="img-container">
+        <img src="sushi.JPEG" alt="Sushi">
+      </div>
+      <div class="card-details">
+        <h2>Sushi</h2>
+        <p> O sushi foi criado há mais de 2.000 anos no Japão. 
+		Originalmente era uma forma de conservar o peixe fresco para o inverno.
+		Em japonês, significa literalmente “amadurecer o peixe”.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="img-container">
+        <img src="ramen.JPEG" alt="Ramen">
+      </div>
+      <div class="card-details">
+        <h2>Ramen</h2>
+        <p>É uma Sopa quente com massa, caldo saboroso e vários tipos de acompanhamentos
+		Originalmente o ramen é uma antiga sopa chinesa que foi levada para o Japão pelos soldados após a Segunda Guerra Sino-Japonesa. </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="img-container">
+        <img src="tempura.JPEG" alt="Tempura">
+      </div>
+      <div class="card-details">
+        <h2>Tempura</h2>
+        <p>Este prato foi levado para o Japão pelos missionários portugueses no século 16 e a partir daí transformou-se num do ícones da grastronomia japonesa.
+		Este prato é feito com frutos do mar e legumes fritos envolvidos numa massa leve e crocante.</p>
+      </div>
+    </div>
+	
+	<div class="card">
+      <div class="img-container">
+        <img src="temaki.JPEG" alt="Temaki">
+      </div>
+      <div class="card-details">
+        <h2>Temaki de Salmão</h2>
+        <p> O temaki de salmão é um enrolado artesanal em forma de cone, feito com alga 
+		crocante, arroz temperado e salmão fresco, que oferece uma combinação perfeita entre sabor, textura e tradição japonesa</p>
+      </div>
+    </div>
+	
+    <div class="card">
+      <div class="img-container">
+        <img src="mochi.JPEG" alt="Mochi">
+      </div>
+      <div class="card-details">
+        <h2>Mochi</h2>
+        <p> O mochi é um bolinho feito de massa de arroz glutinoso com recheios variados, muito comum em festivais.
+		O Mochi, também conhecido como bolinho da sorte japonês, é um alimento levemente doce e pegajoso que tem sua fama datada de séculos.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Melhor altura para visitar:</h2>
+  <p>Primavera (março a maio) para ver as cerejeiras; outono (setembro a novembro) pelas cores.</p>
+  <h2>Curiosidades:</h2>
+  
+      <div class="container">
+      <div class="card">
+        <div class="img-container">
+          <img src="ilhas.JPEG" alt="Metrô de Paris" />
+        </div>
+        <div class="card-details">
+          <h2>Ilhas</h2>
+          <p>O Japão tem mais de 6.800 ilhas — Embora as quatro maiores ilhas (Honshu, Hokkaido, Kyushu e Shikoku) 
+		  sejam as mais conhecidas, o arquipélago japonês é formado por milhares de ilhas menores.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-container">
+          <img src="robotica.JPEG" alt="Luzes de Paris" />
+        </div>
+        <div class="card-details">
+          <h2>Robótica</h2>
+          <p>O Japão é líder mundial em robótica — 
+		  Muitas das tecnologias mais avançadas em robótica, desde robôs industriais até 
+		  androides, foram desenvolvidas no Japão.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-container">
+          <img src="comboios.JPEG" alt="Moulin Rouge" />
+        </div>
+        <div class="card-details">
+          <h2>Comboios-bala</h2>
+          <p>Os comboios-bala (Shinkansen) são extremamente pontuais — 
+		  A média de atraso anual é de apenas alguns segundos, um exemplo impressionante de eficiência e precisão.</p>
+        </div>
+      </div>
+    </div>
+
+  <div id="dateTime"></div>
+
+  <footer>
+    <p>&copy; 2025 Lara Santos | Projeto de TIC | Professor Nuno Santos</p>
+  </footer>
+
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+      const options = {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      };
+      document.getElementById('dateTime').textContent = now.toLocaleDateString('pt-PT', options);
+    }
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,441 @@
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <title>Alemanha</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive;
+      background: radial-gradient(circle, #d0ebff 0%, #a8d0ff 30%, #4a90e2 60%, #000000 250%);
+      color: #333;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #1B3A6B;
+      padding: 10px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo svg {
+      height: 50px;
+    }
+
+     ul.menu {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      padding: 0;
+      margin: 0;
+    }
+
+      ul.menu {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul.menu li {
+      position: relative;
+    }
+
+    ul.menu li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: 0.3s;
+      display: block;
+    }
+
+    ul.menu li a:hover {
+      background-color: #5a8edc;
+    }
+
+    ul.menu li ul.submenu {
+      display: none;
+      position: absolute;
+      top: 38px;
+      left: 0;
+      background-color: #1B3A6B;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      min-width: 150px;
+      border-radius: 0 0 8px 8px;
+      z-index: 10;
+    }
+
+    ul.menu li:hover ul.submenu {
+      display: block;
+    }
+
+    ul.submenu li a {
+      padding: 10px;
+      font-size: 14px;
+      border-bottom: 1px solid #5a8edc;
+    }
+
+    ul.submenu li:last-child a {
+      border-bottom: none;
+    }
+
+    h1 {
+      margin: 30px 0 10px;
+      font-size: 48px;
+    }
+
+    h1 span:nth-child(1) { color: black; } 
+    h1 span:nth-child(2) { color: red; }
+    h1 span:nth-child(3) { color: yellow; }
+    h1 span:nth-child(4) { color: black; }
+    h1 span:nth-child(5) { color: red; }
+    h1 span:nth-child(6) { color: yellow; }
+	h1 span:nth-child(7) { color: black; }
+	h1 span:nth-child(8) { color: red; }
+
+    h2 {
+      margin-top: 40px;
+      color: #003366;
+	  
+    }
+
+    h3 {
+      margin-bottom: 30px;
+	  color: #000000;
+    }
+	
+	h4 {
+		color: #000000;
+	}
+
+    p {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      line-height: 1.5;
+      font-size: 1.1em;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto 50px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .card {
+      position: relative;
+      width: 300px;
+      height: 400px;
+      background: #fff;
+      transform-style: preserve-3d;
+      transform: perspective(2000px);
+      transition: 1s;
+      box-shadow: inset 100px 0 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .card:hover {
+      z-index: 1111;
+      transform: perspective(2000px) rotate(-10deg);
+      box-shadow: inset 20px 0 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .card .img-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border: 1px solid #000;
+      box-sizing: border-box;
+      transform-origin: left;
+      z-index: 1;
+      transition: 1s;
+    }
+
+    .card .img-container img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .card:hover .img-container {
+      transform: rotateY(-135deg);
+    }
+
+    .card .card-details {
+      position: absolute;
+      left: 0;
+      top: 0;
+      box-sizing: border-box;
+      padding: 20px;
+      color: #000;
+      text-align: left;
+    }
+
+    .card .card-details h2 {
+      margin: 0;
+      padding: 0.5em 0;
+      text-transform: uppercase;
+      font-size: 2em;
+      color: #0066cc;
+    }
+
+    .card .card-details p {
+      margin: 0;
+      padding: 0;
+      line-height: 25px;
+      font-size: 1.1em;
+    }
+
+    #dateTime {
+      margin: 40px 0;
+      font-size: 1.2em;
+      color: #003366;
+    }
+
+    footer {
+      background-color: #1B3A6B;
+      color: white;
+      padding: 20px 0;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">
+      <!-- Logo LS SVG -->
+      <svg width="80" height="60" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="10" y="60" font-family="'Georgia', serif" font-size="64" font-weight="600" fill="#ffffff" letter-spacing="8">L</text>
+        <text x="58" y="60" font-family="'Georgia', serif" font-size="64" font-weight="300" fill="#aacbff" letter-spacing="8">S</text>
+        <line x1="10" y1="70" x2="110" y2="70" stroke="#aacbff" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <ul class="menu">
+      <li><a href="Início.html">Início</a></li>
+      <li>
+        <a href="#">Cidades</a>
+        <ul class="submenu">
+          <li><a href="Paris.html">Paris</a></li>
+          <li><a href="Nova York.html">Nova York</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">Países</a>
+        <ul class="submenu">
+          <li><a href="Japão.html">Japão</a></li>
+		  <li><a href="Alemanha.html">Alemanha</a></li>
+        </ul>
+  </nav>
+  
+   <h1>
+    <span>A</span>
+    <span>L</span>
+    <span>E</span>
+    <span>M</span>
+	<span>A</span>
+    <span>N</span>
+    <span>H</span>
+	<span>A</span>
+  </h1>
+  
+  
+    <h3 align="center">Um país onde a história se encontra com a inovação a cada passo.</h3>
+
+  <h2>Principais Atrações:</h2>
+  <div class="container">
+    <div class="card">
+      <div class="img-container">
+        <img src="portao.JPEG" alt="Tóquio">
+      </div>
+      <div class="card-details">
+        <h2>Portão de Brandemburgo</h2>
+        <p> Construído no século XVIII, é um dos monumentos mais icónicos da Alemanha. 
+		Simboliza a paz e foi palco de grandes momentos históricos, como a queda do Muro de Berlim em 1989.</p>
+      </div>
+    </div>
+	
+	 <div class="card">
+      <div class="img-container">
+        <img src="castelo2.JPEG" alt="Castelo de Neuschwanstein">
+      </div>
+      <div class="card-details">
+        <h2>Castelo de Neuschwanstein</h2>
+        <p> Situado no alto de uma montanha, este castelo encantador foi encomendado pelo rei Luís II e inspirou o castelo da Cinderela da Disney. 
+		É rodeado por florestas e montanhas, e parece saído de um conto de fadas.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="img-container">
+        <img src="muro.JPEG" alt="Muro de Berlim">
+      </div>
+      <div class="card-details">
+        <h2>Muro de Berlim </h2>
+        <p>Antiga divisão entre a Alemanha Ocidental e Oriental, hoje é uma galeria a céu aberto 
+		com murais coloridos que transmitem mensagens de liberdade, paz e união.".</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="img-container">
+        <img src="catedral2.JPEG" alt="Catedral de Colónia">
+      </div>
+      <div class="card-details">
+        <h2>Catedral de Colónia </h2>
+        <p>Uma impressionante catedral gótica com duas torres gigantes que dominam o horizonte da cidade. 
+		Demorou mais de 600 anos a ser concluída e é Património Mundial da UNESCO.</p>
+      </div>
+    </div>
+	
+	<div class="card">
+      <div class="img-container">
+        <img src="floresta.JPEG" alt="Floresta Negra">
+      </div>
+      <div class="card-details">
+        <h2>Floresta Negra</h2>
+        <p> Uma das regiões naturais mais bonitas da Alemanha, conhecida por trilhos, lagos e vilas pitorescas. 
+		É também o berço do famoso relógio cuco.</p>
+      </div>
+    </div>
+	
+  </div>
+
+  <h2>Comida Típica:</h2>
+  <div class="container">
+    <div class="card">
+      <div class="img-container">
+        <img src="salsichas.JPEG" alt="Salsichas Alemãs">
+      </div>
+      <div class="card-details">
+        <h2>Salsichas Alemãs </h2>
+        <p> A Alemanha tem mais de 1.500 tipos de salsichas! As mais famosas são a Bratwurst (grelhada), 
+		a Currywurst (com molho de caril) e a Weisswurst (branca, típica da Baviera)..</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="img-container">
+        <img src="pretzel.JPEG" alt="Pretzel">
+      </div>
+      <div class="card-details">
+        <h2>Pretzel </h2>
+        <p>Um pão com forma de laço, crocante por fora e macio por dentro, geralmente polvilhado com sal grosso. 
+		Pode ser servido simples ou com queijo, fiambre ou manteiga.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="img-container">
+        <img src="schnitzel.JPEG" alt="Schnitzel">
+      </div>
+      <div class="card-details">
+        <h2>Schnitzel</h2>
+        <p>Fatias finas de carne (normalmente porco ou vitela) empanadas e fritas. 
+		É muito popular em toda a Alemanha, servido com batatas, salada ou esparguete.</p>
+      </div>
+    </div>
+	
+	<div class="card">
+      <div class="img-container">
+        <img src="sauerkraut.JPEG" alt="Sauerkraut">
+      </div>
+      <div class="card-details">
+        <h2>Sauerkraut</h2>
+        <p>Repolho fermentado com sabor ácido, muito utilizado como acompanhamento de carnes e salsichas. 
+		Além de saboroso, é saudável e rico em probióticos.</p>
+      </div>
+    </div>
+	
+    <div class="card">
+      <div class="img-container">
+        <img src="apfelstrudel.JPEG" alt="Apfelstrudel">
+      </div>
+      <div class="card-details">
+        <h2>Apfelstrudel</h2>
+        <p> Uma deliciosa sobremesa feita com maçã, canela, passas e massa folhada fina. 
+		Pode ser servido quente com gelado de baunilha ou chantilly.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Melhor altura para visitar:</h2>
+  <p>A melhor altura para visitar a Alemanha é entre maio e setembro, quando os dias são mais longos, 
+	o clima é ameno e há muitos festivais ao ar livre.
+	Se gostares de neve e mercados de Natal mágicos, dezembro também é uma ótima opção, 
+	especialmente para visitar cidades como Munique, Nuremberga e Berlim.</p>
+	
+  <h2>Curiosidades:</h2>
+  
+      <div class="container">
+      <div class="card">
+        <div class="img-container">
+          <img src="autobahn.JPEG" alt="Autobahn" />
+        </div>
+        <div class="card-details">
+          <h2>Autobahn</h2>
+          <p>A Autobahn é famosa por ter trechos sem limite de velocidade. É considerada 
+		  uma das autoestradas mais seguras do mundo devido à sua excelente manutenção.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-container">
+          <img src="natal.JPEG" alt="Mercados de Natal" />
+        </div>
+        <div class="card-details">
+          <h2>Mercados de Natal</h2>
+          <p>Os mercados de Natal alemães (Weihnachtsmärkte) são dos mais antigos e bonitos da Europa, com decorações, doces, 
+		  artesanato e bebidas como o Glühwein (vinho quente com especiarias).</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-container">
+          <img src="castelos.JPEG" alt="Castelos" />
+        </div>
+        <div class="card-details">
+          <h2>Castelos</h2>
+          <p>Mais de 20.000 castelos espalhados pelo país! 
+		  Muitos podem ser visitados e alguns até transformados em hotéis.</p>
+        </div>
+      </div>
+    </div>
+
+  <div id="dateTime"></div>
+
+  <footer>
+    <p>&copy; 2025 Lara Santos | Projeto de TIC | Professor Nuno Santos</p>
+  </footer>
+
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+      const options = {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      };
+      document.getElementById('dateTime').textContent = now.toLocaleDateString('pt-PT', options);
+    }
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+  </script>
+
+</body>
+</html>

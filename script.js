@@ -277,42 +277,42 @@ if (resetBtn) {
 const projects = [
     {
         id: 1,
-        title: 'E-commerce Website',
-        category: 'web',
-        description: 'Loja online completa com carrinho de compras',
-        image: 'imagens/carrinho.JPEG',
-        tags: ['HTML', 'CSS', 'JavaScript', 'API'],
-        link: 'https://github.com/...',
-        longDescription: 'Website de e-commerce completo com sistema de carrinho, checkout, e integração com API de pagamentos. Interface moderna e responsiva.',
-        features: ['Carrinho de compras', 'Sistema de pagamento', 'Área de utilizador', 'Gestão de produtos'],
-        technologies: ['HTML5', 'CSS3', 'JavaScript ES6+', 'LocalStorage', 'Fetch API'],
-        date: '2025-01'
+        title: 'Segurança no desenvolvimento de software',
+        category: 'presentation',
+        description: 'Apresentação',
+        image: 'imagens/projeto1.JPG',
+        tags: ['Tech', 'Web', 'Canva',],
+        link: 'https://www.canva.com/design/DAGzJtRFPcA/CkXSRLlC0Lz5DYrNA0H6Rw/edit?utm_content=DAGzJtRFPcA&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton',
+        longDescription: 'Apresentação de programação sobre segurança no desenvolvimento de softwares',
+        features: ['Aprendizagem', 'Prática', 'Exemplos', 'Dicas de segurança'],
+        technologies: ['Canva'],
+        date: '2026-02'
     },
     {
         id: 2,
-        title: 'App de Tarefas',
-        category: 'web',
-        description: 'Gestor de tarefas com filtros e categorias',
-        image: 'imagens/designer.JPEG',
-        tags: ['React', 'CSS', 'LocalStorage'],
-        link: 'https://github.com/...',
-        longDescription: 'Aplicação de gestão de tarefas com sistema de prioridades, categorias e persistência local.',
-        features: ['Adicionar/editar/remover tarefas', 'Filtros por estado', 'Categorias', 'Persistência de dados'],
-        technologies: ['HTML5', 'CSS3', 'JavaScript', 'LocalStorage'],
-        date: '2024-12'
+        title: 'Strings',
+        category: 'presentation',
+        description: 'Apresentação',
+        image: 'imagens/projeto2.JPG',
+        tags: ['Tech', 'Web', 'Canva'],
+        link: 'https://www.canva.com/design/DAGfXyKpDtA/RtO4dnCTIHmXyuRNR5Co2Q/edit?utm_content=DAGfXyKpDtA&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton',
+        longDescription: 'Apresentação de programação sobre strings',
+        features: ['Aprendizagem', 'Prática', 'Exemplos', 'Dicas de manipulação de strings'],
+        technologies: ['Canva', 'C'],
+        date: '2025-03'
     },
     {
         id: 3,
-        title: 'Portfolio Designer',
-        category: 'design',
-        description: 'Portfolio criativo para designer gráfico',
-        image: 'imagens/empresa.JPEG',
-        tags: ['Figma', 'UI/UX', 'Protótipo'],
-        link: 'https://figma.com/...',
-        longDescription: 'Design de portfolio minimalista e elegante para apresentar trabalhos criativos.',
+        title: 'Site Viagens',
+        category: 'web',
+        description: 'Site de viagens para explorar destinos',
+        image: 'imagens/projeto3.JPG',
+        tags: ['HTML', 'CSS', 'Design'],
+        link: 'Site%20tic/Início.html',
+        longDescription: 'Site de viagens para explorar destinos turísticos com design moderno.',
         features: ['Design responsivo', 'Animações suaves', 'Galeria de trabalhos', 'Formulário de contacto'],
-        technologies: ['Figma', 'Design System', 'Prototyping'],
-        date: '2024-11'
+        technologies: ['HTML', 'CSS'],
+        date: '2024-12'
     },
     {
         id: 4,
@@ -423,11 +423,13 @@ function updateCounters() {
     const webCount = projects.filter(p => p.category === 'web').length;
     const mobileCount = projects.filter(p => p.category === 'mobile').length;
     const designCount = projects.filter(p => p.category === 'design').length;
-    
+    const presentationCount = projects.filter(p => p.category === 'presentation').length;
+
     document.querySelector('[data-category="all"] .count').textContent = allCount;
     document.querySelector('[data-category="web"] .count').textContent = webCount;
     document.querySelector('[data-category="mobile"] .count').textContent = mobileCount;
     document.querySelector('[data-category="design"] .count').textContent = designCount;
+    document.querySelector('[data-category="presentation"] .count').textContent = presentationCount;
 }
 
 // Inicializar ao carregar página

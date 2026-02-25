@@ -1,0 +1,326 @@
+<html lang="pt"> <!-- Serve para definir a linguagens dodocumento, neste caso em portugues -->
+
+<head>
+  <meta charset="UTF-8" /> <!-- Serve para suportar acentos e caracteres especiais, e não dar erros em alguns nem ficar estranho -->
+  <title>Início</title> <!-- Aqui vamos definir o titulo da pagina que é o que vai aparacer no separador no navegador\ -->
+
+  <style>
+    /* Estilo geral do "corpo" da página */
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive;
+      background: radial-gradient(circle, #d0ebff 0%, #a8d0ff 30%, #4a90e2 60%, #000000 250%);
+      color: #333;
+      text-align: center;
+    }
+
+    /* Estilo para a barra de navegação */
+    nav {
+      background-color: #1B3A6B;
+      padding: 10px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Estilo do logótipo */
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo svg {
+      height: 50px;
+    }
+
+    /* Estilo do menu principal */
+    ul.menu {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul.menu li {
+      position: relative;
+    }
+
+    ul.menu li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: 0.3s;
+      display: block;
+    }
+
+    ul.menu li a:hover {
+      background-color: #5a8edc;
+    }
+
+    /* Submenu e o seu estilo(lista que aparece ao passar o rato) */
+    ul.menu li ul.submenu {
+      display: none;
+      position: absolute;
+      top: 38px;
+      left: 0;
+      background-color: #1B3A6B;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      min-width: 150px;
+      border-radius: 0 0 8px 8px;
+      z-index: 10;
+    }
+
+    ul.menu li:hover ul.submenu {
+      display: block;
+    }
+
+    ul.submenu li a {
+      padding: 10px;
+      font-size: 14px;
+      border-bottom: 1px solid #5a8edc;
+    }
+
+    ul.submenu li:last-child a {
+      border-bottom: none;
+    }
+
+    /* Estilo dos títulos */
+    h1 {
+      margin: 30px 0 10px;
+      font-size: 52px;
+	  color: #660033
+    }
+
+    /* Cores diferentes nas letras do título */
+    h1 span:nth-child(1) { color: red; }
+    h1 span:nth-child(2) { color: white; }
+    h1 span:nth-child(3) { color: red; }
+    h1 span:nth-child(4) { color: white; }
+    h1 span:nth-child(5) { color: red; }
+
+    h2 {
+      margin-top: 40px;
+      color: #000000;
+    }
+
+    h3 {
+      margin-bottom: 30px;
+    }
+	
+	h4 {
+		font-size: 20px;
+		color: #000000
+	}
+
+    /* Parágrafos */
+    p {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      line-height: 1.5;
+      font-size: 1.1em;
+    }
+
+    /* Container (serve para organizar e agrupar elementos de forma mais controlada) para os cartões */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto 50px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    /* Estilo do cartão com efeito 3D */
+    .card {
+      position: relative;
+      width: 300px;
+      height: 400px;
+      background: #fff;
+      transform-style: preserve-3d;
+      transform: perspective(2000px);
+      transition: 1s;
+      box-shadow: inset 100px 0 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .card:hover {
+      z-index: 1111;
+      transform: perspective(2000px) rotate(-10deg);
+      box-shadow: inset 20px 0 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .card .img-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border: 1px solid #000;
+      box-sizing: border-box;
+      transform-origin: left;
+      z-index: 1;
+      transition: 1s;
+    }
+
+    .card .img-container img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .card:hover .img-container {
+      transform: rotateY(-135deg);
+    }
+
+    .card .card-details {
+      position: absolute;
+      left: 0;
+      top: 0;
+      box-sizing: border-box;
+      padding: 20px;
+      color: #000;
+      text-align: left;
+    }
+
+    .card .card-details h2 {
+      margin: 0;
+      padding: 0.5em 0;
+      text-transform: uppercase;
+      font-size: 2em;
+      color: #0066cc;
+    }
+
+    .card .card-details p {
+      margin: 0;
+      padding: 0;
+      line-height: 25px;
+      font-size: 1.1em;
+    }
+
+    /* Relógio e a data */
+    #dateTime {
+      margin: 40px 0;
+      font-size: 1.2em;
+      color: #003366;
+    }
+
+    /* Rodapé */
+    footer {
+      background-color: #1B3A6B;
+      color: white;
+      padding: 20px 0;
+      font-size: 0.9em;
+    }
+
+    /* Estilo das imagens com efeito em hover( é para aplicar um efeito quando o rato passa por cima de um elemento)*/
+    img {
+      --_g: 10%/45% 45% no-repeat conic-gradient(#000 0 0);
+      mask: 
+        left   var(--_i,) top    var(--_g),
+        bottom var(--_i,) left   var(--_g),
+        top    var(--_i,) right  var(--_g),
+        right  var(--_i,) bottom var(--_g);
+      filter: grayscale(1);
+      transition: 0.3s linear;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    img:hover {
+      --_i: 10%;
+      filter: grayscale(0);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Barra de navegação -  que vai ter o logótipo e o menu -->
+  <nav>
+    <div class="logo">
+      <!-- Logótipo com SVG (gráfico vetorial escalável - É usado para desenhar formas, texto, linhas...) com as letras "L" e "S" -->
+      <svg width="80" height="60" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="10" y="60" font-family="'Georgia', serif" font-size="64" font-weight="600" fill="#ffffff" letter-spacing="8">L</text>
+        <text x="58" y="60" font-family="'Georgia', serif" font-size="64" font-weight="300" fill="#aacbff" letter-spacing="8">S</text>
+        <line x1="10" y1="70" x2="110" y2="70" stroke="#aacbff" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- Menu de navegação com submenus -->
+    <ul class="menu">
+      <li><a href="Início.html">Início</a></li>
+      <li>
+        <a href="#">Cidades</a>
+        <ul class="submenu">
+          <li><a href="Paris.html">Paris</a></li>
+          <li><a href="Nova York.html">Nova York</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">Países</a>
+        <ul class="submenu">
+          <li><a href="Japão.html">Japão</a></li>
+		  <li><a href="Alemanha.html">Alemanha</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Título e introdução -->
+  <h1>EXPLORA O MUNDO</h1>
+  <h4>Estás a pensar nas próximas férias? Estás indeciso? --- Paris, Japão, Nova York ou Alemanha? --- Clica e descobre mais sobre estes sítios.</h4>
+  <h4>Escolhe o teu destino:</h4>
+
+  <!-- Tabela com imagens das cidades/países e links -->
+  <table border="0" align="center">
+    <tr>
+      <th><a href="Paris.html"><img src="paris.JPEG" width="342" height="456" alt="Paris"></a></th>
+      <th><a href="Japão.html"><img src="japao.JPEG" width="342" height="456" alt="Japão"></a></th>
+      <th><a href="Nova York.html"><img src="nova york.JPEG" width="342" height="456" alt="Nova York"></a></th>
+	  <th><a href="Alemanha.html"><img src="alemanha.JPEG" width="342" height="456" alt="Alemanha"></a></th>
+    </tr>
+    <tr>
+      <td><a href="Paris.html"><h3>Paris</h3></a></td>
+      <td><a href="Japão.html"><h3>Japão</h3></a></td>
+      <td><a href="Nova York.html"><h3>Nova York</h3></a></td>
+	  <td><a href="Alemanha.html"><h3>Alemanha</h3></a></td>
+	  
+    </tr>
+  </table>
+
+  <!-- Local onde vai aparecer a data e hora atual -->
+  <div id="dateTime"></div>
+
+  <!-- Rodapé com créditos -->
+  <footer>
+    <p>&copy; 2025 Lara Santos | Projeto de TIC | Professor Nuno Santos</p>
+  </footer>
+
+  <!-- Script JavaScript que atualiza a data e hora em tempo real -->
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+      const options = {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      };
+      document.getElementById('dateTime').textContent = now.toLocaleDateString('pt-PT', options);
+    }
+
+    // Atualiza a cada segundo
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+  </script>
+
+</body>
+</html>

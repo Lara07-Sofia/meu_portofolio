@@ -1,0 +1,431 @@
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nova York</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive;
+      background: radial-gradient(circle, #d0ebff 0%, #a8d0ff 30%, #4a90e2 60%, #000000 250%);
+      color: #333;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #1B3A6B;
+      padding: 10px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo svg {
+      height: 50px;
+    }
+
+     ul.menu {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      padding: 0;
+      margin: 0;
+    }
+
+      ul.menu {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul.menu li {
+      position: relative;
+    }
+
+    ul.menu li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: 0.3s;
+      display: block;
+    }
+
+    ul.menu li a:hover {
+      background-color: #5a8edc;
+    }
+
+    ul.menu li ul.submenu {
+      display: none;
+      position: absolute;
+      top: 38px;
+      left: 0;
+      background-color: #1B3A6B;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      min-width: 150px;
+      border-radius: 0 0 8px 8px;
+      z-index: 10;
+    }
+
+    ul.menu li:hover ul.submenu {
+      display: block;
+    }
+
+    ul.submenu li a {
+      padding: 10px;
+      font-size: 14px;
+      border-bottom: 1px solid #5a8edc;
+    }
+
+    ul.submenu li:last-child a {
+      border-bottom: none;
+    }
+
+    h1 {
+      margin: 30px 0 10px;
+      font-size: 48px;
+    }
+
+    h1 span:nth-child(1) { color: blue; }
+    h1 span:nth-child(2) { color: white; }
+    h1 span:nth-child(3) { color: orange; }
+    h1 span:nth-child(4) { color: blue; }
+    h1 span:nth-child(5) { color: white; }
+    h1 span:nth-child(6) { color: white; }
+	h1 span:nth-child(7) { color: orange; }
+	h1 span:nth-child(8) { color: blue; }
+	h1 span:nth-child(9) { color: white; }
+
+    h2 {
+      margin-top: 40px;
+      color: #003366;
+    }
+
+    h3 {
+      margin-bottom: 30px;
+	  color: #000000;
+    }
+	
+	h4 {
+		color: #000000;
+	}
+
+    p {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      line-height: 1.5;
+      font-size: 1.1em;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto 50px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .card {
+      position: relative;
+      width: 300px;
+      height: 400px;
+      background: #fff;
+      transform-style: preserve-3d;
+      transform: perspective(2000px);
+      transition: 1s;
+      box-shadow: inset 100px 0 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .card:hover {
+      z-index: 1111;
+      transform: perspective(2000px) rotate(-10deg);
+      box-shadow: inset 20px 0 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .card .img-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border: 1px solid #000;
+      box-sizing: border-box;
+      transform-origin: left;
+      z-index: 1;
+      transition: 1s;
+    }
+
+    .card .img-container img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .card:hover .img-container {
+      transform: rotateY(-135deg);
+    }
+
+    .card .card-details {
+      position: absolute;
+      left: 0;
+      top: 0;
+      box-sizing: border-box;
+      padding: 20px;
+      color: #000;
+      text-align: left;
+    }
+
+    .card .card-details h2 {
+      margin: 0;
+      padding: 0.5em 0;
+      text-transform: uppercase;
+      font-size: 2em;
+      color: #0066cc;
+    }
+
+    .card .card-details p {
+      margin: 0;
+      padding: 0;
+      line-height: 25px;
+      font-size: 1.1em;
+    }
+
+    #dateTime {
+      margin: 40px 0;
+      font-size: 1.2em;
+      color: #003366;
+    }
+
+    footer {
+      background-color: #1B3A6B;
+      color: white;
+      padding: 20px 0;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">
+      <!-- Logo LS SVG -->
+      <svg width="80" height="60" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="10" y="60" font-family="'Georgia', serif" font-size="64" font-weight="600" fill="#ffffff" letter-spacing="8">L</text>
+        <text x="58" y="60" font-family="'Georgia', serif" font-size="64" font-weight="300" fill="#aacbff" letter-spacing="8">S</text>
+        <line x1="10" y1="70" x2="110" y2="70" stroke="#aacbff" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <ul class="menu">
+      <li><a href="Início.html">Início</a></li>
+      <li>
+        <a href="#">Cidades</a>
+        <ul class="submenu">
+          <li><a href="Paris.html">Paris</a></li>
+          <li><a href="Nova York.html">Nova York</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">Países</a>
+        <ul class="submenu">
+          <li><a href="Japão.html">Japão</a></li>
+		  <li><a href="Alemanha.html">Alemanha</a></li>
+        </ul>
+  </nav>
+  
+   <h1>
+    <span>N</span>
+    <span>O</span>
+    <span>V</span>
+    <span>A</span>
+	<span> </span>
+    <span>Y</span>
+    <span>O</span>
+	<span>R</span>
+	<span>K</span>
+  </h1>
+
+  <h3 align="center">A cidade que nunca dorme, repleta de luzes, cultura e arranha-céus.</h3>
+
+  <h2>Principais Atrações:</h2>
+
+  <div class="container">
+    <div class="card">
+      <div class="img-container">
+        <img src="estatua.JPEG" alt="Estátua da Liberdade" />
+      </div>
+      <div class="card-details">
+        <h2>Estátua da Liberdade</h2>
+        <p> É um símbolo da liberdade. Foi um presente da França para os EUA e inaugurada em 28 de outubro de 1886.
+		Ela representa a deusa romana da liberdade, mede 93 metros de altura, incluindo seu pedestal, e é feita de cobre, aço, concreto e granito.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="img-container">
+        <img src="park.JPEG" alt="Central Park" />
+      </div>
+      <div class="card-details">
+        <h2>Central Park</h2>
+        <p>Foi o primeiro parque público nos Estados Unidos, tem 3,15 km2 e foi inaugurado em 1857.
+		É um enorme parque urbano no centro de Manhattan, ideal para passeios, piqueniques e relaxar no meio da enorme floresta de arranha-céus.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="img-container">
+        <img src="times.JPEG" alt="Times Square" />
+      </div>
+      <div class="card-details">
+        <h2>Times Square</h2>
+        <p>É uma área comercial, onde todos os prédios são obrigados a instalar letreiros luminosos para propósitos de publicidade.
+		É famosa pelos seus painéis luminosos e teatros da Broadway, é um dos pontos mais movimentados de Nova York.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="img-container">
+        <img src="empire.JPEG" alt="Empire State Building" />
+      </div>
+      <div class="card-details">
+        <h2>Empire State</h2>
+        <p>É um aranha-céus de 102 andares que fica no centro de Manhattan
+		Um dos edifícios mais icónicos da cidade, com miradouro de onde se vê toda Manhattan.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Comida Típica:</h2>
+
+  <div class="container">
+    <div class="card">
+      <div class="img-container">
+        <img src="pizza.JPEG" alt="Pizza estilo NY" />
+      </div>
+      <div class="card-details">
+        <h2>Pizza NY</h2>
+        <p>Apesar da pizza não ser própriamente um prato tradicional de NY é muito comum encontrar á venda nas ruas 
+		grandes fatias de pizza finas e crocantes. Pode ser dizer que é um clássico das ruas de NY.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="img-container">
+        <img src="bagels.JPEG" alt="Bagel" />
+      </div>
+      <div class="card-details">
+        <h2>Bagel</h2>
+        <p>O bagel é um pão em forma de anel. Pode ter vários tipos de recheio ,as o mais popular nos cafés é o que é 
+		recheado com cream chease e salmão.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="img-container">
+        <img src="hot.JPEG" alt="Hot Dog" />
+      </div>
+      <div class="card-details">
+        <h2>Hot Dog</h2>
+        <p> É uma sanduíche de salsicha muito popular nas ruas da cidade, servido com mostarda, ketchup e cebola.
+		Apesar de ser muito famoso, o hot dog, é um lanche simples mas que é muito encontrado em todas as esquinas e ruas de NY.</p>
+      </div>
+    </div>
+	
+	<div class="card">
+      <div class="img-container">
+        <img src="pastrami.JPEG" alt="Pastrami" />
+      </div>
+      <div class="card-details">
+        <h2>Pastrami</h2>
+        <p>O pastrami é habitualmente servido em sandes, sendo que foi a famosa sanduíche de Nova Iorque que o fez sair de ser uma carnes curadas anónimas.
+		Esta carne foi introduzida nos Estados Unidos no século 18 pelos imigrantes romenos. Hoje já é tradicional lá e ganhou popularidade no ínicio 
+		dos anos 1920 em NY.
+		</p>
+      </div>
+    </div>
+	
+	<div class="card">
+      <div class="img-container">
+        <img src="cheesecake.JPEG" alt="Cheesecake" />
+      </div>
+      <div class="card-details">
+        <h2>Cheesecake</h2>
+        <p>É uma das sobremesas mais icónicas da cidade!
+		Feita com queijo creme (cream cheese), ovos e açúcar sobre uma base de bolacha, tem uma textura densa e cremosa.
+		É servida simples ou com coberturas como morango, chocolate ou frutos silvestres.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Melhor altura para visitar:</h2>
+  <p>Primavera (abril a junho) e outono (setembro a novembro), quando o clima é mais agradável.</p>
+
+  <h2>Curiosidades:</h2>
+  
+      <div class="container">
+      <div class="card">
+        <div class="img-container">
+          <img src="ponte.JPEG" alt="Metrô de Paris" />
+        </div>
+        <div class="card-details">
+          <h2>Ponte de Brooklyn</h2>
+          <p>A Ponte de Brooklyn já foi a ponte suspensa mais longa do mundo! 
+		  Inaugurada em 1883, esta ponte tem 1.825 metros de comprimento e foi um feito impressionante de engenharia para a época.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-container">
+          <img src="ilha.JPEG" alt="Luzes de Paris" />
+        </div>
+        <div class="card-details">
+          <h2>Roosevelt Island</h2>
+          <p>Existe uma ilha chamada Roosevelt Island no meio do East River.
+		  É uma ilha residencial com uma história única, que já foi um hospital, prisão e sanatório.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="img-container">
+          <img src="big.JPEG" alt="Moulin Rouge" />
+        </div>
+        <div class="card-details">
+          <h2>Big Apple</h2>
+          <p>O famoso “Big Apple” tem origem misteriosa! O apelido para Nova York surgiu nos anos 1920 nos círculos de corridas de cavalo, 
+		  quando um jornalista usou a expressão para se referir aos grandes prêmios (“big apples”) das corridas na cidade.</p>
+        </div>
+      </div>
+    </div>
+
+  <div id="dateTime"></div>
+
+  <footer>
+    <p>&copy; 2025 Lara Santos | Projeto de TIC | Professor Nuno Santos</p>
+  </footer>
+
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+      const options = {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      };
+      document.getElementById('dateTime').textContent = now.toLocaleDateString('pt-PT', options);
+    }
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+  </script>
+
+</body>
+</html>
