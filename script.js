@@ -678,3 +678,525 @@ window.addEventListener('scroll', animarScroll);
 
 /* Executar uma vez ao carregar página */
 animarScroll();
+
+
+
+
+
+
+
+
+
+
+
+
+// ===== VALIDAÇÃO DO FORMULÁRIO =====
+
+// Regras de validação
+const validationRules = {
+    name: {
+        required: true,
+        minLength: 3,
+        pattern: /^[a-zA-ZÀ-ÿ\s]+$/,
+        errorMessages: {
+            required: 'Por favor, introduz o teu nome',
+            minLength: 'O nome deve ter pelo menos 3 caracteres',
+            pattern: 'O nome só pode conter letras'
+        }
+    },
+    email: {
+        required: true,
+        pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        errorMessages: {
+            required: 'Por favor, introduz o teu email',
+            pattern: 'Por favor, introduz um email válido'
+        }
+    },
+    subject: {
+        required: true,
+        errorMessages: {
+            required: 'Por favor, seleciona um assunto'
+        }
+    },
+    message: {
+        required: true,
+        minLength: 10,
+        maxLength: 500,
+        errorMessages: {
+            required: 'Por favor, escreve uma mensagem',
+            minLength: 'A mensagem deve ter pelo menos 10 caracteres',
+            maxLength: 'A mensagem não pode ter mais de 500 caracteres'
+        }
+    }
+};
+
+// Validar campo individual
+function validateField(fieldName, value) {
+    const rules = validationRules[fieldName];
+    
+    // Required
+    if (rules.required && !value.trim()) {
+        return {
+            valid: false,
+            message: rules.errorMessages.required
+        };
+    }
+    
+    // Min Length
+    if (rules.minLength && value.trim().length < rules.minLength) {
+        return {
+            valid: false,
+            message: rules.errorMessages.minLength
+        };
+    }
+    
+    // Max Length
+    if (rules.maxLength && value.trim().length > rules.maxLength) {
+        return {
+            valid: false,
+            message: rules.errorMessages.maxLength
+        };
+    }
+    
+    // Pattern (RegEx)
+    if (rules.pattern && !rules.pattern.test(value)) {
+        return {
+            valid: false,
+            message: rules.errorMessages.pattern
+        };
+    }
+    
+    // Válido!
+    return {
+        valid: true,
+        message: ''
+    };
+}
+
+// Mostrar feedback visual
+function showFieldFeedback(fieldName, isValid, message = '') {
+    const formGroup = document.getElementById(fieldName).closest('.form-group');
+    const errorElement = formGroup.querySelector('.error-message');
+    
+    // Remover estados anteriores
+    formGroup.classList.remove('valid', 'invalid');
+    
+    // Adicionar novo estado
+    if (isValid) {
+        formGroup.classList.add('valid');
+        errorElement.textContent = '';
+    } else {
+        formGroup.classList.add('invalid');
+        errorElement.textContent = message;
+    }
+}
+
+
+// ===== EVENT LISTENERS =====
+
+function setupFormValidation() {
+    const form = document.getElementById('contact-form');
+    const fields = ['name', 'email', 'subject', 'message'];
+    
+    // Validar cada campo ao perder foco (blur)
+    fields.forEach(fieldName => {
+        const field = document.getElementById(fieldName);
+        
+        field.addEventListener('blur', () => {
+            const validation = validateField(fieldName, field.value);
+            showFieldFeedback(fieldName, validation.valid, validation.message);
+            updateSubmitButton();
+        });
+        
+        // Validar enquanto escreve (para limpar erros)
+        field.addEventListener('input', () => {
+            // Só valida se já tinha erro
+            const formGroup = field.closest('.form-group');
+            if (formGroup.classList.contains('invalid')) {
+                const validation = validateField(fieldName, field.value);
+                showFieldFeedback(fieldName, validation.valid, validation.message);
+                updateSubmitButton();
+            }
+        });
+    });
+}
+
+// Validar form inteiro
+function validateForm() {
+    const fields = ['name', 'email', 'subject', 'message'];
+    let isFormValid = true;
+    
+    fields.forEach(fieldName => {
+        const field = document.getElementById(fieldName);
+        const validation = validateField(fieldName, field.value);
+        
+        showFieldFeedback(fieldName, validation.valid, validation.message);
+        
+        if (!validation.valid) {
+            isFormValid = false;
+        }
+    });
+    
+    return isFormValid;
+}
+
+// Atualizar estado do botão submit
+function updateSubmitButton() {
+    const submitBtn = document.getElementById('submit-btn');
+    const isValid = validateForm();
+    
+    submitBtn.disabled = !isValid;
+}
+
+// Inicializar
+document.addEventListener('DOMContentLoaded', () => {
+    setupFormValidation();
+    console.log('✅ Validação configurada');
+});
+
+
+
+// ===== CONTADOR DE CARACTERES =====
+
+function setupCharCounter() {
+    const messageField = document.getElementById('message');
+    const charCount = document.getElementById('char-count');
+    const counter = document.querySelector('.char-counter');
+    const maxLength = 500;
+    
+    messageField.addEventListener('input', () => {
+        const length = messageField.value.length;
+        charCount.textContent = length;
+        
+        // Remover classes anteriores
+        counter.classList.remove('warning', 'error');
+        
+        // Adicionar warning quando >400 caracteres
+        if (length > 400 && length <= maxLength) {
+            counter.classList.add('warning');
+        }
+        
+        // Adicionar error quando >maxLength
+        if (length > maxLength) {
+            counter.classList.add('error');
+        }
+    });
+}
+
+// Adicionar ao DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    setupFormValidation();
+    setupCharCounter();
+    console.log('✅ Contador de caracteres ativo');
+});
+
+
+
+// ===== TOAST NOTIFICATIONS =====
+
+function showToast(type, title, message, duration = 3000) {
+    const container = document.getElementById('toast-container');
+    
+    // Ícones por tipo
+    const icons = {
+        success: '✅',
+        error: '❌',
+        warning: '⚠️',
+        info: 'ℹ️'
+    };
+    
+    // Criar toast
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.innerHTML = `
+        
+${icons[type]}
+
+        
+
+            
+${title}
+
+            
+${message}
+
+        
+
+        ×
+    `;
+    
+    // Adicionar ao container
+    container.appendChild(toast);
+    
+    // Close button
+    const closeBtn = toast.querySelector('.toast-close');
+    closeBtn.addEventListener('click', () => {
+        toast.style.animation = 'fadeOut 0.4s ease forwards';
+        setTimeout(() => toast.remove(), 400);
+    });
+    
+    // Auto-remove após duration
+    setTimeout(() => {
+        if (toast.parentElement) {
+            toast.style.animation = 'fadeOut 0.4s ease forwards';
+            setTimeout(() => toast.remove(), 400);
+        }
+    }, duration);
+    
+    console.log(`Toast ${type}: ${title}`);
+}
+
+
+// ===== PROCESSAR SUBMIT =====
+
+function setupFormSubmit() {
+    const form = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('submit-btn');
+    
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Validar form final
+        if (!validateForm()) {
+            showToast('error', 'Erro!', 'Por favor, corrige os erros no formulário');
+            return;
+        }
+        
+        // Desativar botão e mostrar loading
+        submitBtn.disabled = true;
+        submitBtn.classList.add('loading');
+        
+        // Simular envio (depois vamos guardar em localStorage)
+        try {
+            // Simular delay de rede
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+            // Sucesso!
+            showToast(
+                'success',
+                'Mensagem Enviada!',
+                'Obrigado pelo contacto. Respondo em breve!'
+            );
+            
+            // Limpar formulário
+            form.reset();
+            
+            // Remover estados de validação
+            document.querySelectorAll('.form-group').forEach(group => {
+                group.classList.remove('valid', 'invalid');
+            });
+            
+            // Resetar contador
+            document.getElementById('char-count').textContent = '0';
+            
+        } catch (error) {
+            showToast(
+                'error',
+                'Erro ao Enviar',
+                'Ocorreu um erro. Tenta novamente.'
+            );
+        } finally {
+            // Reativar botão e remover loading
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('loading');
+        }
+    });
+}
+
+// Adicionar ao DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    setupFormValidation();
+    setupCharCounter();
+    setupFormSubmit();
+    console.log('✅ Form submit configurado');
+});
+
+
+
+// ===== GUARDAR MENSAGENS =====
+
+function saveMessage(formData) {
+    // Obter mensagens existentes
+    const messages = JSON.parse(localStorage.getItem('contactMessages')) || [];
+    
+    // Criar nova mensagem
+    const message = {
+        id: Date.now(),
+        name: formData.get('name'),
+        email: formData.get('email'),
+        subject: formData.get('subject'),
+        message: formData.get('message'),
+        date: new Date().toISOString(),
+        read: false
+    };
+    
+    // Adicionar ao array
+    messages.unshift(message); // unshift adiciona ao início
+    
+    // Guardar de volta
+    localStorage.setItem('contactMessages', JSON.stringify(messages));
+    
+    console.log('💾 Mensagem guardada:', message);
+    return message;
+}
+
+// Atualizar função de submit
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+        showToast('error', 'Erro!', 'Por favor, corrige os erros');
+        return;
+    }
+    
+    submitBtn.disabled = true;
+    submitBtn.classList.add('loading');
+    
+    try {
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        // ADICIONAR: Guardar mensagem
+        const formData = new FormData(form);
+        saveMessage(formData);
+        
+        showToast(
+            'success',
+            'Mensagem Enviada!',
+            'Obrigado pelo contacto. Respondo em breve!'
+        );
+        
+        form.reset();
+        // ... resto do código
+        
+    } catch (error) {
+        showToast('error', 'Erro ao Enviar', 'Tenta novamente.');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('loading');
+    }
+});
+
+
+// ===== ADMIN VIEW =====
+
+function loadMessages() {
+    const messages = JSON.parse(localStorage.getItem('contactMessages')) || [];
+    const messagesList = document.getElementById('messages-list');
+    const noMessages = document.getElementById('no-messages');
+    const totalMessages = document.getElementById('total-messages');
+    const unreadBadge = document.getElementById('unread-badge');
+    
+    // Atualizar contador
+    totalMessages.textContent = messages.length;
+    
+    // Contar não lidas
+    const unreadCount = messages.filter(m => !m.read).length;
+    if (unreadCount > 0) {
+        unreadBadge.textContent = unreadCount;
+        unreadBadge.style.display = 'flex';
+    } else {
+        unreadBadge.style.display = 'none';
+    }
+    
+    // Mostrar/esconder mensagens
+    if (messages.length === 0) {
+        messagesList.style.display = 'none';
+        noMessages.style.display = 'block';
+        return;
+    }
+    
+    messagesList.style.display = 'flex';
+    noMessages.style.display = 'none';
+    
+    // Renderizar mensagens
+    messagesList.innerHTML = messages.map(msg => `
+        
+
+            
+
+                
+
+                    
+${msg.name}
+
+                    
+${msg.email}
+
+
+                
+
+                
+
+                    
+${new Date(msg.date).toLocaleDateString('pt-PT')}
+
+                    
+${new Date(msg.date).toLocaleTimeString('pt-PT')}
+
+                
+
+            
+
+            ${msg.subject}
+            
+${msg.message}
+
+            
+
+                
+                    🗑️ Eliminar
+                
+            
+
+        
+
+    `).join('');
+}
+
+function deleteMessage(id) {
+    if (!confirm('Eliminar esta mensagem?')) return;
+    
+    let messages = JSON.parse(localStorage.getItem('contactMessages')) || [];
+    messages = messages.filter(m => m.id !== id);
+    localStorage.setItem('contactMessages', JSON.stringify(messages));
+    
+    loadMessages();
+    showToast('success', 'Eliminada!', 'Mensagem removida com sucesso');
+}
+
+function clearAllMessages() {
+    if (!confirm('Eliminar TODAS as mensagens? Esta ação é irreversível!')) return;
+    
+    localStorage.removeItem('contactMessages');
+    loadMessages();
+    showToast('success', 'Limpo!', 'Todas as mensagens foram removidas');
+}
+
+// Toggle admin view
+function setupAdminToggle() {
+    const toggleBtn = document.getElementById('toggle-admin');
+    const adminSection = document.getElementById('admin-messages');
+    let isVisible = false;
+    
+    toggleBtn.addEventListener('click', () => {
+        isVisible = !isVisible;
+        adminSection.style.display = isVisible ? 'block' : 'none';
+        
+        if (isVisible) {
+            loadMessages();
+            // Scroll para admin
+            adminSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+}
+
+// Limpar todas
+document.getElementById('clear-messages')?.addEventListener('click', clearAllMessages);
+
+// Inicializar
+document.addEventListener('DOMContentLoaded', () => {
+    // ... código anterior
+    setupAdminToggle();
+    loadMessages(); // Carregar contador inicial
+    console.log('✅ Admin view configurada');
+});
