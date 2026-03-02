@@ -58,7 +58,7 @@ function updateClock() {
     minutes = String(minutes).padStart(2, '0');
     seconds = String(seconds).padStart(2, '0');
 
-    // Atualiza o DOM
+    // Atualiza elementos do relógio
     document.getElementById('hours').textContent = hours;
     document.getElementById('minutes').textContent = minutes;
     document.getElementById('seconds').textContent = seconds;
@@ -171,14 +171,7 @@ function updateLastVisitDisplay() {
 /* =========================================================
    INICIALIZAÇÃO GERAL (executa ao carregar a página)
    ========================================================= */
-document.addEventListener('DOMContentLoaded', () => {
-    loadSavedTheme();       // Carrega tema claro/escuro
-    loadClockFormat();      // Carrega formato 12h/24h
-    startClock();           // Inicia relógio
-    incrementVisitCount();  // Incrementa visitas
-    updateVisitDisplay();   // Atualiza número de visitas
-    updateLastVisitDisplay(); // Atualiza última visita
-});
+
 
 
 
@@ -197,11 +190,6 @@ function initVisitCounter() {
     console.log('📊 Contador de visitas inicializado!');
 }
 
-/* Executa quando a página carrega */
-document.addEventListener('DOMContentLoaded', () => {
-    initVisitCounter();
-    // ... outras inicializações
-});
 
 /* Reset ao contador de visitas */
 function resetVisitCounter() {
@@ -391,11 +379,6 @@ function updateCounters() {
     document.querySelector('[data-category="presentation"] .count').textContent = presentationCount;
 }
 
-/* Renderiza projetos ao carregar a página */
-document.addEventListener('DOMContentLoaded', () => {
-    renderProjects(projects);
-    console.log('✅ Projetos renderizados!');
-});
 
 
 
@@ -448,12 +431,6 @@ function setupFilterListeners() {
     });
 }
 
-/* Ativa filtros ao carregar página */
-document.addEventListener('DOMContentLoaded', () => {
-    renderProjects(projects);
-    setupFilterListeners();
-    console.log('✅ Filtros configurados!');
-});
 
 
 
@@ -560,13 +537,6 @@ function setupModalListeners() {
     });
 }
 
-/* Ativar modal ao carregar página */
-document.addEventListener('DOMContentLoaded', () => {
-    renderProjects(projects);
-    setupFilterListeners();
-    setupModalListeners();
-    console.log('✅ Modal configurado!');
-});
 
 
 
@@ -643,16 +613,6 @@ function setupSearchListener() {
         }
     });
 }
-
-/* Ativar pesquisa ao carregar página */
-document.addEventListener('DOMContentLoaded', () => {
-    renderProjects(projects);
-    setupFilterListeners();
-    setupModalListeners();
-    setupSearchListener();
-    console.log('✅ Pesquisa configurada!');
-});
-
 
 
 /* =========================================================
@@ -848,12 +808,6 @@ function updateSubmitButton() {
     submitBtn.disabled = !isValid;
 }
 
-// Inicializar
-document.addEventListener('DOMContentLoaded', () => {
-    setupFormValidation();
-    console.log('✅ Validação configurada');
-});
-
 
 
 // ===== CONTADOR DE CARACTERES =====
@@ -883,12 +837,7 @@ function setupCharCounter() {
     });
 }
 
-// Adicionar ao DOMContentLoaded
-document.addEventListener('DOMContentLoaded', () => {
-    setupFormValidation();
-    setupCharCounter();
-    console.log('✅ Contador de caracteres ativo');
-});
+
 
 
 
@@ -905,25 +854,17 @@ function showToast(type, title, message, duration = 3000) {
         info: 'ℹ️'
     };
     
-    // Criar toast
+// Criar toast
     const toast = document.createElement('div');
     toast.className = `toast toast-${type}`;
+    toast.innerHTML =
     toast.innerHTML = `
-        
-${icons[type]}
-
-        
-
-            
-${title}
-
-            
-${message}
-
-        
-
-        ×
-    `;
+    <div class="toast-icon">${icons[type]}</div>
+    <div class="toast-content">
+        <strong>${title}</strong>
+        <p>${message}</p>
+    </div>
+    <span class="toast-close">×</span>`;
     
     // Adicionar ao container
     container.appendChild(toast);
@@ -956,60 +897,42 @@ function setupFormSubmit() {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        // Validar form final
         if (!validateForm()) {
             showToast('error', 'Erro!', 'Por favor, corrige os erros no formulário');
             return;
         }
         
-        // Desativar botão e mostrar loading
         submitBtn.disabled = true;
         submitBtn.classList.add('loading');
         
-        // Simular envio (depois vamos guardar em localStorage)
         try {
-            // Simular delay de rede
             await new Promise(resolve => setTimeout(resolve, 1500));
             
-            // Sucesso!
+            // GUARDAR MENSAGEM
+            const formData = new FormData(form);
+            saveMessage(formData);
+            
             showToast(
                 'success',
                 'Mensagem Enviada!',
                 'Obrigado pelo contacto. Respondo em breve!'
             );
             
-            // Limpar formulário
             form.reset();
-            
-            // Remover estados de validação
             document.querySelectorAll('.form-group').forEach(group => {
                 group.classList.remove('valid', 'invalid');
             });
-            
-            // Resetar contador
             document.getElementById('char-count').textContent = '0';
             
         } catch (error) {
-            showToast(
-                'error',
-                'Erro ao Enviar',
-                'Ocorreu um erro. Tenta novamente.'
-            );
+            showToast('error', 'Erro ao Enviar', 'Ocorreu um erro. Tenta novamente.');
         } finally {
-            // Reativar botão e remover loading
             submitBtn.disabled = false;
             submitBtn.classList.remove('loading');
         }
     });
 }
 
-// Adicionar ao DOMContentLoaded
-document.addEventListener('DOMContentLoaded', () => {
-    setupFormValidation();
-    setupCharCounter();
-    setupFormSubmit();
-    console.log('✅ Form submit configurado');
-});
 
 
 
@@ -1031,7 +954,7 @@ function saveMessage(formData) {
     };
     
     // Adicionar ao array
-    messages.unshift(message); // unshift adiciona ao início
+    messages.unshift(message);
     
     // Guardar de volta
     localStorage.setItem('contactMessages', JSON.stringify(messages));
@@ -1040,57 +963,36 @@ function saveMessage(formData) {
     return message;
 }
 
-// Atualizar função de submit
-form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    if (!validateForm()) {
-        showToast('error', 'Erro!', 'Por favor, corrige os erros');
-        return;
-    }
-    
-    submitBtn.disabled = true;
-    submitBtn.classList.add('loading');
-    
-    try {
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        // ADICIONAR: Guardar mensagem
-        const formData = new FormData(form);
-        saveMessage(formData);
-        
-        showToast(
-            'success',
-            'Mensagem Enviada!',
-            'Obrigado pelo contacto. Respondo em breve!'
-        );
-        
-        form.reset();
-        // ... resto do código
-        
-    } catch (error) {
-        showToast('error', 'Erro ao Enviar', 'Tenta novamente.');
-    } finally {
-        submitBtn.disabled = false;
-        submitBtn.classList.remove('loading');
-    }
-});
-
-
 // ===== ADMIN VIEW =====
+// Limpar todas as mensagens
+function clearAllMessages() {
+    const confirmClear = window.confirm('Tens a certeza que queres apagar TODAS as mensagens? Esta ação é irreversível!');
+    
+    if (confirmClear) {
+        // Apagar do localStorage
+        localStorage.removeItem('contactMessages');
+        
+        // Atualizar a interface
+        loadMessages();
+        
+        showToast('success', 'Mensagens Apagadas!', 'Todas as mensagens foram removidas.');
+        console.log('🗑️ Todas as mensagens foram apagadas!');
+    }
+}
 
+// Carregar e exibir mensagens
 function loadMessages() {
     const messages = JSON.parse(localStorage.getItem('contactMessages')) || [];
     const messagesList = document.getElementById('messages-list');
     const noMessages = document.getElementById('no-messages');
-    const totalMessages = document.getElementById('total-messages');
+    const totalCount = document.getElementById('total-messages');
     const unreadBadge = document.getElementById('unread-badge');
     
-    // Atualizar contador
-    totalMessages.textContent = messages.length;
+    totalCount.textContent = messages.length;
     
-    // Contar não lidas
+    // Contar mensagens não lidas
     const unreadCount = messages.filter(m => !m.read).length;
+    
     if (unreadCount > 0) {
         unreadBadge.textContent = unreadCount;
         unreadBadge.style.display = 'flex';
@@ -1098,78 +1000,71 @@ function loadMessages() {
         unreadBadge.style.display = 'none';
     }
     
-    // Mostrar/esconder mensagens
+    // Limpar lista
+    messagesList.innerHTML = '';
+    
+    // Se não há mensagens
     if (messages.length === 0) {
-        messagesList.style.display = 'none';
         noMessages.style.display = 'block';
         return;
     }
     
-    messagesList.style.display = 'flex';
     noMessages.style.display = 'none';
     
-    // Renderizar mensagens
-    messagesList.innerHTML = messages.map(msg => `
+    // Renderizar cada mensagem
+    messages.forEach(message => {
+        const messageCard = document.createElement('div');
+        messageCard.className = `message-card ${message.read ? '' : 'unread'}`;
+        messageCard.dataset.id = message.id;
         
-
-            
-
-                
-
-                    
-${msg.name}
-
-                    
-${msg.email}
-
-
-                
-
-                
-
-                    
-${new Date(msg.date).toLocaleDateString('pt-PT')}
-
-                    
-${new Date(msg.date).toLocaleTimeString('pt-PT')}
-
-                
-
-            
-
-            ${msg.subject}
-            
-${msg.message}
-
-            
-
-                
-                    🗑️ Eliminar
-                
-            
-
+        const date = new Date(message.date);
+        const dateStr = date.toLocaleDateString('pt-PT') + ' ' + date.toLocaleTimeString('pt-PT', {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
         
-
-    `).join('');
+        messageCard.innerHTML = `
+            <div class="message-header">
+                <div class="message-sender">
+                    <h4>${message.name}</h4>
+                    <p>${message.email}</p>
+                </div>
+                <div class="message-meta">
+                    ${dateStr}
+                </div>
+            </div>
+            
+            <span class="message-subject">${message.subject}</span>
+            
+            <div class="message-body">
+                ${message.message}
+            </div>
+            
+            <div class="message-actions">
+                <button class="btn-delete" onclick="deleteMessage(${message.id})">
+                    🗑️ Apagar
+                </button>
+            </div>
+        `;
+        
+        messagesList.appendChild(messageCard);
+    });
 }
 
-function deleteMessage(id) {
-    if (!confirm('Eliminar esta mensagem?')) return;
+// Apagar mensagem individual
+function deleteMessage(messageId) {
+    const confirmDelete = window.confirm('Tens a certeza que queres apagar esta mensagem?');
+    
+    if (!confirmDelete) return;
     
     let messages = JSON.parse(localStorage.getItem('contactMessages')) || [];
-    messages = messages.filter(m => m.id !== id);
+    messages = messages.filter(m => m.id !== messageId);
+    
     localStorage.setItem('contactMessages', JSON.stringify(messages));
     
     loadMessages();
-    showToast('success', 'Eliminada!', 'Mensagem removida com sucesso');
-}
-
-function clearAllMessages() {
-    if (!confirm('Eliminar TODAS as mensagens? Esta ação é irreversível!')) return;
-    
-    localStorage.removeItem('contactMessages');
-    loadMessages();
-    showToast('success', 'Limpo!', 'Todas as mensagens foram removidas');
+    showToast('success', 'Mensagem Apagada!', 'A mensagem foi removida com sucesso.');
+    console.log(`🗑️ Mensagem ${messageId} apagada!`);
 }
 
 // Toggle admin view
@@ -1193,9 +1088,57 @@ function setupAdminToggle() {
 // Limpar todas
 document.getElementById('clear-messages')?.addEventListener('click', clearAllMessages);
 
-// Inicializar
+
+
+
+/* =========================================================
+   FOOTER - Atualizar ano
+   ========================================================= */
+
+function updateFooterYear() {
+    const yearElement = document.getElementById('year');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
+}
+
+
+
+
+//DOM
+
 document.addEventListener('DOMContentLoaded', () => {
-    // ... código anterior
+    updateFooterYear();
+    loadSavedTheme();
+    console.log('✅ Portfolio inicializado!');
+    loadSavedTheme();
+    startClock();
+    loadClockFormat();
+    startClock();
+    initVisitCounter();
+    renderProjects(projects);
+    console.log('✅ Projetos renderizados!');
+    renderProjects(projects);
+    setupFilterListeners();  // ADICIONAR ESTA LINHA
+    console.log('✅ Filtros configurados!');
+    renderProjects(projects);
+    setupFilterListeners();
+    setupModalListeners();  // ADICIONAR ESTA LINHA
+    console.log('✅ Modal configurado!');
+    renderProjects(projects);
+    setupFilterListeners();
+    setupModalListeners();
+    setupSearchListener();  // ADICIONAR ESTA LINHA
+    console.log('✅ Pesquisa configurada!');
+    setupFormValidation();
+    console.log('✅ Validação configurada');
+    setupFormValidation();
+    setupCharCounter();
+    console.log('✅ Contador de caracteres ativo');
+    setupFormValidation();
+    setupCharCounter();
+    setupFormSubmit();
+    console.log('✅ Form submit configurado');
     setupAdminToggle();
     loadMessages(); // Carregar contador inicial
     console.log('✅ Admin view configurada');
