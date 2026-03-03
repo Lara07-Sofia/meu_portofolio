@@ -295,7 +295,7 @@ footer {
     border-radius: 15px;
 
     /* Sombra suave */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 25px rgba(49, 161, 206, 0.555);
 
     letter-spacing: 0.1em;
     border: 1px solid var(--border);
@@ -322,7 +322,7 @@ footer {
 
 .format-toggle:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 8px 18px rgba(49, 161, 206, 0.555);
 }
 
 /* =========================================================
@@ -336,7 +336,7 @@ footer {
     text-align: center;
 
     /* Sombra suave */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 25px rgba(49, 161, 206, 0.555);
 
     border: 1px solid var(--border);
 }
@@ -469,7 +469,7 @@ footer {
     color: var(--text-primary);
     border-radius: 15px;
     overflow: hidden; /* Garante que a imagem respeita o border-radius */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(49, 161, 206, 0.555);
     transition: all 0.3s;
     cursor: pointer;
 }
@@ -477,7 +477,7 @@ footer {
 /* Hover do card */
 .project-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);
+    box-shadow: 0 8px 25px rgba(49, 161, 206, 0.555);
 }
 
 /* Imagem do card */
@@ -733,7 +733,7 @@ li a {
     position: relative;
 
     animation: slideUp 0.4s ease;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 60px rgba(49, 161, 206, 0.555);
 }
 
 /* Animação do modal */
@@ -1065,7 +1065,7 @@ li a {
 .form-group textarea:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    box-shadow: 0 0 0 4px rgba(49, 161, 206, 0.555);
 }
 
 .form-group textarea {
