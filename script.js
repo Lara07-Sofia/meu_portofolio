@@ -1143,3 +1143,130 @@ document.addEventListener('DOMContentLoaded', () => {
     loadMessages(); // Carregar contador inicial
     console.log('✅ Admin view configurada');
 });
+
+
+
+
+
+
+
+/* =========================================================
+   COLA ISTO NO FINAL DO TEU script.js
+   ========================================================= */
+
+(function () {
+
+    // ── CURSOR ──────────────────────────────────────────────
+    const cursor     = document.getElementById('cursor');
+    const cursorRing = document.getElementById('cursor-ring');
+
+    let mouseX = 0, mouseY = 0;
+    let ringX  = 0, ringY  = 0;
+
+    document.addEventListener('mousemove', e => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursor.style.left = mouseX + 'px';
+        cursor.style.top  = mouseY + 'px';
+    });
+
+    // Anel segue com suavidade
+    function animateRing() {
+        ringX += (mouseX - ringX) * 0.13;
+        ringY += (mouseY - ringY) * 0.13;
+        cursorRing.style.left = ringX + 'px';
+        cursorRing.style.top  = ringY + 'px';
+        requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    // Cresce ao passar em elementos interativos
+    const interactivos = document.querySelectorAll(
+        'a, button, .filter-btn, .project-card, .theme-toggle, .toggle-admin, .submit-btn, .reset-btn, .format-toggle'
+    );
+    interactivos.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.style.width      = '18px';
+            cursor.style.height     = '18px';
+            cursor.style.background = '#33ccff';
+            cursorRing.style.width  = '52px';
+            cursorRing.style.height = '52px';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursor.style.width      = '10px';
+            cursor.style.height     = '10px';
+            cursor.style.background = document.body.classList.contains('dark-mode') ? '#00aaff' : '#0055cc';
+            cursorRing.style.width  = '34px';
+            cursorRing.style.height = '34px';
+        });
+    });
+
+    // Atualiza cor do cursor ao mudar de tema
+    const themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+            setTimeout(() => {
+                cursor.style.background = document.body.classList.contains('dark-mode') ? '#00aaff' : '#0055cc';
+            }, 50);
+        });
+    }
+
+    // ── MATRIX RAIN — só dentro do hero ─────────────────────
+    const canvas = document.getElementById('matrix-bg');
+    const ctx    = canvas.getContext('2d');
+    const hero   = canvas.parentElement;
+
+    function resizeCanvas() {
+        canvas.width  = hero.offsetWidth;
+        canvas.height = hero.offsetHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', () => { resizeCanvas(); initDrops(); });
+
+    const fontSize = 13;
+    const chars    = '01アイウエオカキクケコサシスセソ0123456789ABCDEF#!%&?';
+    let drops = [];
+
+    function initDrops() {
+        const cols = Math.floor(canvas.width / fontSize);
+        drops = Array.from({ length: cols }, () => Math.random() * -40);
+    }
+    initDrops();
+
+    function isDark() {
+        return document.body.classList.contains('dark-mode');
+    }
+
+    function drawMatrix() {
+        ctx.fillStyle = isDark()
+            ? 'rgba(8, 50, 80, 0.06)'
+            : 'rgba(34, 68, 89, 0.06)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.font = fontSize + 'px "Courier New", monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+            const char = chars[Math.floor(Math.random() * chars.length)];
+            const x    = i * fontSize;
+            const y    = drops[i] * fontSize;
+
+            if (drops[i] * fontSize < fontSize * 2) {
+                ctx.fillStyle = isDark()
+                    ? 'rgba(180, 235, 255, 0.98)'
+                    : 'rgba(255, 255, 255, 1.0)';
+            } else {
+                ctx.fillStyle = isDark()
+                    ? 'rgba(0, 170, 255, 0.75)'
+                    : 'rgba(255, 255, 255, 0.75)';
+            }
+
+            ctx.fillText(char, x, y);
+
+            if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        }
+    }
+
+    setInterval(drawMatrix, 50);
+
+})();
