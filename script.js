@@ -89,11 +89,6 @@ function incrementVisitCount() {
     return count;
 }
 
-function updateVisitDisplay() {
-    const el = document.getElementById('visit-count');
-    if (el) el.textContent = getVisitCount();
-}
-
 function formatLastVisit() {
     const iso = localStorage.getItem('lastVisit');
     if (!iso) return 'Primeira vez aqui! 🎉';
@@ -114,17 +109,40 @@ function updateLastVisitDisplay() {
     if (el) el.textContent = formatLastVisit();
 }
 
+/* Anima o número de 0 até ao valor real */
+function animateCounter(target) {
+    const el = document.getElementById('visit-count');
+    if (!el) return;
+    const steps    = 40;
+    const interval = 1500 / steps; // dura 1.5 segundos no total
+    let current    = 0;
+
+    const timer = setInterval(() => {
+        current += target / steps;
+        if (current >= target) {
+            current = target;
+            clearInterval(timer);
+        }
+        el.textContent = Math.floor(current);
+        // Pequeno bounce em cada passo
+        el.classList.remove('counting');
+        void el.offsetWidth;
+        el.classList.add('counting');
+    }, interval);
+}
+
 function initVisitCounter() {
     incrementVisitCount();
-    updateVisitDisplay();
     updateLastVisitDisplay();
+    animateCounter(getVisitCount()); // conta animado em vez de mostrar direto
 }
 
 function resetVisitCounter() {
     if (!window.confirm('Tens a certeza que queres resetar o contador?')) return;
     localStorage.removeItem('visitCount');
     localStorage.removeItem('lastVisit');
-    updateVisitDisplay();
+    const el = document.getElementById('visit-count');
+    if (el) el.textContent = '0';
     updateLastVisitDisplay();
     alert('Contador resetado com sucesso!');
 }
@@ -222,7 +240,7 @@ let currentCategory = 'all';
 /*    5. RENDERIZAÇÃO DOS PROJETOS */
 
 function renderProjects(projectsToRender) {
-    const grid     = document.getElementById('projects-grid');
+    const grid      = document.getElementById('projects-grid');
     const noResults = document.getElementById('no-results');
 
     grid.innerHTML = '';
@@ -260,11 +278,11 @@ function createProjectCard(project) {
 
 /* Atualiza os contadores nos botões de filtro */
 function updateCounters() {
-    document.querySelector('[data-category="all"] .count').textContent         = projects.length;
-    document.querySelector('[data-category="web"] .count').textContent         = projects.filter(p => p.category === 'web').length;
-    document.querySelector('[data-category="mobile"] .count').textContent      = projects.filter(p => p.category === 'mobile').length;
-    document.querySelector('[data-category="design"] .count').textContent      = projects.filter(p => p.category === 'design').length;
-    document.querySelector('[data-category="presentation"] .count').textContent= projects.filter(p => p.category === 'presentation').length;
+    document.querySelector('[data-category="all"] .count').textContent          = projects.length;
+    document.querySelector('[data-category="web"] .count').textContent          = projects.filter(p => p.category === 'web').length;
+    document.querySelector('[data-category="mobile"] .count').textContent       = projects.filter(p => p.category === 'mobile').length;
+    document.querySelector('[data-category="design"] .count').textContent       = projects.filter(p => p.category === 'design').length;
+    document.querySelector('[data-category="presentation"] .count').textContent = projects.filter(p => p.category === 'presentation').length;
 }
 
 
@@ -429,10 +447,10 @@ const validationRules = {
 
 function validateField(fieldName, value) {
     const rules = validationRules[fieldName];
-    if (rules.required && !value.trim())                            return { valid: false, message: rules.errorMessages.required };
-    if (rules.minLength && value.trim().length < rules.minLength)   return { valid: false, message: rules.errorMessages.minLength };
-    if (rules.maxLength && value.trim().length > rules.maxLength)   return { valid: false, message: rules.errorMessages.maxLength };
-    if (rules.pattern && !rules.pattern.test(value))               return { valid: false, message: rules.errorMessages.pattern };
+    if (rules.required && !value.trim())                          return { valid: false, message: rules.errorMessages.required };
+    if (rules.minLength && value.trim().length < rules.minLength) return { valid: false, message: rules.errorMessages.minLength };
+    if (rules.maxLength && value.trim().length > rules.maxLength) return { valid: false, message: rules.errorMessages.maxLength };
+    if (rules.pattern && !rules.pattern.test(value))             return { valid: false, message: rules.errorMessages.pattern };
     return { valid: true, message: '' };
 }
 
@@ -509,6 +527,7 @@ function setupFormSubmit() {
             await new Promise(res => setTimeout(res, 1500));
             saveMessage(new FormData(form));
             showToast('success', 'Mensagem Enviada!', 'Obrigado pelo contacto. Respondo em breve!');
+            loadMessages();
             form.reset();
             document.querySelectorAll('.form-group').forEach(g => g.classList.remove('valid', 'invalid'));
             document.getElementById('char-count').textContent = '0';
@@ -570,17 +589,17 @@ function saveMessage(formData) {
 }
 
 function loadMessages() {
-    const messages    = JSON.parse(localStorage.getItem('contactMessages')) || [];
-    const list        = document.getElementById('messages-list');
-    const noMessages  = document.getElementById('no-messages');
-    const total       = document.getElementById('total-messages');
-    const badge       = document.getElementById('unread-badge');
+    const messages   = JSON.parse(localStorage.getItem('contactMessages')) || [];
+    const list       = document.getElementById('messages-list');
+    const noMessages = document.getElementById('no-messages');
+    const total      = document.getElementById('total-messages');
+    const badge      = document.getElementById('unread-badge');
 
     total.textContent = messages.length;
 
     const unread = messages.filter(m => !m.read).length;
-    badge.textContent    = unread;
-    badge.style.display  = unread > 0 ? 'flex' : 'none';
+    badge.textContent   = unread;
+    badge.style.display = unread > 0 ? 'flex' : 'none';
 
     list.innerHTML = '';
 
@@ -592,11 +611,11 @@ function loadMessages() {
     noMessages.style.display = 'none';
 
     messages.forEach(msg => {
-        const card  = document.createElement('div');
+        const card = document.createElement('div');
         card.className = `message-card ${msg.read ? '' : 'unread'}`;
         card.dataset.id = msg.id;
 
-        const date = new Date(msg.date);
+        const date    = new Date(msg.date);
         const dateStr = date.toLocaleDateString('pt-PT') + ' ' +
             date.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' });
 
@@ -743,7 +762,6 @@ animarScroll();
     function isDark() { return document.body.classList.contains('dark-mode'); }
 
     function drawMatrix() {
-        // Rastro de desvanecimento ligado ao gradiente do hero
         ctx.fillStyle = isDark() ? 'rgba(8,50,80,0.06)' : 'rgba(26,80,120,0.06)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.font = fontSize + 'px "Courier New", monospace';
@@ -780,7 +798,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadSavedTheme();       // Carrega tema guardado
     loadClockFormat();      // Carrega formato do relógio
     startClock();           // Inicia o relógio
-    initVisitCounter();     // Inicia o contador de visitas
+    initVisitCounter();     // Inicia o contador de visitas (com animação)
 
     renderProjects(projects); // Renderiza os projetos
     setupFilterListeners();   // Ativa os filtros
@@ -793,4 +811,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setupAdminToggle();     // Ativa o painel admin
     loadMessages();         // Carrega contagem inicial de mensagens
+
+    // ── BACK TO TOP ──
+    const backBtn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+        backBtn.classList.toggle('visivel', window.scrollY > 300);
+    });
+    backBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 });
