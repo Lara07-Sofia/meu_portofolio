@@ -2,15 +2,11 @@
 <html lang="pt">
 
 <head>
-    <meta charset="UTF-8">          <!-- Permite acentos e caracteres especiais -->
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- Faz o site ser visto em telemóveis -->
-
-    <meta name="description" content="Portfolio de Lara Santos - Desenvolvedor Web">    <!-- Descrição que aparece no Google -->
-
-    <title>Lara Santos - Portfolio</title>      <!-- Título do separador -->
-
-    <link rel="stylesheet" href="styles.css">       <!-- Liga o CSS -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio de Lara Santos - Desenvolvedor Web">
+    <title>Lara Santos - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -19,20 +15,15 @@
     <div class="cursor" id="cursor"></div>
     <div class="cursor-ring" id="cursor-ring"></div>
 
-    <!-- ================= HEADER ================= -->
+    <!-- ===== HEADER ===== -->
     <header>
-        <nav> 
-            <!-- Nome no topo com animação -->
+        <nav>
             <h1 class="entrada">Lara Santos</h1>
-
-            <!-- Menu de navegação -->
             <ul>
                 <li><a href="#about">Sobre Mim</a></li>
                 <li><a href="#projects">Projetos</a></li>
                 <li><a href="#contact">Contacto</a></li>
             </ul>
-
-            <!-- Botão para alternar temas-->
             <button id="theme-toggle" class="theme-toggle" aria-label="Alternar tema">
                 <span class="icon-light">☀️</span>
                 <span class="icon-dark">🌙</span>
@@ -40,67 +31,55 @@
         </nav>
     </header>
 
-    <!-- ================= HERO / INTRO ================= -->
+    <!-- ===== HERO ===== -->
     <section class="hero scroll-anim">
-
         <!-- Canvas do matrix rain — fica dentro do hero -->
         <canvas id="matrix-bg"></canvas>
-
         <!-- Conteúdo por cima do matrix -->
         <div class="hero-content">
-            <!-- Título principal -->
-            <h2 class="entrada"> Olá! </h2>
+            <h2 class="entrada">Olá!</h2>
             <h2 class="entrada">Sou a Lara Santos 😁</h2>
-
-            <!-- Subtítulo -->
             <p>Desenvolvedora Web | Estudante | Criativa</p>
         </div>
-
     </section>
 
-    <!-- ================= SOBRE MIM ================= -->
+    <!-- ===== SOBRE MIM ===== -->
     <section id="about" class="about scroll-anim">
 
-        <!-- Título da secção -->
         <h2 class="entrada">Sobre Mim</h2>
+        <p class="entrada">Sou estudante do curso profissional de Programador de Informática.</p>
 
-        <!-- Texto de apresentação -->
-        <p class="entrada">Sou estudante do curso profissional de Programador se Informática.</p>
-
-        <!-- ===== Relógio ===== -->
+        <!-- Relógio digital com animação de flip por dígito -->
         <div class="clock-container">
             <div class="clock">
-                <!-- Horas atualizadas pelo JavaScript -->
-                <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+                <div class="digit" id="d-h1"><span>0</span></div>
+                <div class="digit" id="d-h2"><span>0</span></div>
+                <span class="clock-sep">:</span>
+                <div class="digit" id="d-m1"><span>0</span></div>
+                <div class="digit" id="d-m2"><span>0</span></div>
+                <span class="clock-sep">:</span>
+                <div class="digit" id="d-s1"><span>0</span></div>
+                <div class="digit" id="d-s2"><span>0</span></div>
             </div>
-
-            <!-- Botão para alternar entre 12h e 24h -->
             <button id="format-toggle" class="format-toggle">12h/24h</button>
         </div>
 
-        <!-- ===== Contador de visitas ===== -->
+        <!-- Contador de visitas -->
         <div class="visit-counter">
             <p class="entrada">👋 Visitaste esta página <strong id="visit-count">0</strong> vezes</p>
-
-            <!-- Mostra a última visita guardada no localStorage -->
             <p class="last-visit">Última visita: <span id="last-visit">Primeira vez!</span></p>
-
-            <!-- Botão para limpar o contador -->
             <button id="reset-counter" class="reset-btn">🔄 Reset</button>
         </div>
 
     </section>
 
-    <!-- ================= PROJETOS ================= -->
+    <!-- ===== PROJETOS ===== -->
     <section id="projects" class="projects scroll-anim">
 
-        <!-- Título da secção -->
         <h2 class="entrada">Projetos</h2>
 
-        <!-- ===== Filtros + Pesquisa ===== -->
+        <!-- Filtros e pesquisa -->
         <div class="projects-controls">
-
-            <!-- Botões de filtro -->
             <div class="filter-buttons">
                 <button class="filter-btn active" data-category="all">Todos <span class="count">0</span></button>
                 <button class="filter-btn" data-category="web">Web <span class="count">0</span></button>
@@ -108,18 +87,13 @@
                 <button class="filter-btn" data-category="design">Design <span class="count">0</span></button>
                 <button class="filter-btn" data-category="presentation">Presentation <span class="count">0</span></button>
             </div>
-
-            <!-- Barra de pesquisa -->
             <div class="search-box">
                 <input type="text" id="search-input" placeholder="Pesquisar projetos...">
             </div>
-
         </div>
 
-        <!-- ===== Grelha onde os cards aparecem ===== -->
-        <div id="projects-grid" class="projects-grid">
-            <!-- Os cards são criados dinamicamente no script.js -->
-        </div>
+        <!-- Cards dos projetos (criados pelo script.js) -->
+        <div id="projects-grid" class="projects-grid"></div>
 
         <!-- Mensagem quando não há resultados -->
         <div id="no-results" class="no-results" style="display: none;">
@@ -128,7 +102,7 @@
 
     </section>
 
-    <!-- ================= MODAL ================= -->
+    <!-- ===== MODAL ===== -->
     <div id="project-modal" class="modal">
         <div class="modal-content">
             <span class="modal-close">x</span>
@@ -136,125 +110,125 @@
         </div>
     </div>
 
-    <!-- ================= CONTACTO ================= -->
+    <!-- ===== CONTACTO ===== -->
     <section id="contact" class="contact scroll-anim">
-    <div class="section-header">
-        <h2>📧 Entra em Contacto</h2>
-        <p>Tens alguma questão ou projeto em mente? Envia-me uma mensagem!</p>
-    </div>
+        <div class="section-header">
+            <h2>📧 Entra em Contacto</h2>
+            <p>Tens alguma questão ou projeto em mente? Envia-me uma mensagem!</p>
+        </div>
 
-    <div class="contact-container">
-        <form id="contact-form" class="contact-form" novalidate>
-            
-            <div class="form-group">
-                <label for="name">Nome Completo <span class="required">*</span></label>
-                <div class="input-wrapper">
-                    <input type="text" id="name" name="name" placeholder="O teu nome" required minlength="3">
-                    <span class="input-icon"></span>
+        <div class="contact-container">
+
+            <!-- Formulário -->
+            <form id="contact-form" class="contact-form" novalidate>
+
+                <div class="form-group">
+                    <label for="name">Nome Completo <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <input type="text" id="name" name="name" placeholder="O teu nome" required minlength="3">
+                        <span class="input-icon"></span>
+                    </div>
+                    <span class="error-message"></span>
                 </div>
-                <span class="error-message"></span>
-            </div>
 
-            <div class="form-group">
-                <label for="email">Email <span class="required">*</span></label>
-                <div class="input-wrapper">
-                    <input type="email" id="email" name="email" placeholder="teu@email.com" required>
-                    <span class="input-icon"></span>
+                <div class="form-group">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <input type="email" id="email" name="email" placeholder="teu@email.com" required>
+                        <span class="input-icon"></span>
+                    </div>
+                    <span class="error-message"></span>
                 </div>
-                <span class="error-message"></span>
-            </div>
 
-            <div class="form-group">
-                <label for="subject">Assunto <span class="required">*</span></label>
-                <div class="input-wrapper">
-                    <select id="subject" name="subject" required>
-                        <option value="">Seleciona um assunto</option>
-                        <option value="projeto">Proposta de Projeto</option>
-                        <option value="colaboracao">Colaboração</option>
-                        <option value="emprego">Oportunidade de Emprego</option>
-                        <option value="info">Pedido de Informação</option>
-                        <option value="outro">Outro</option>
-                    </select>
-                    <span class="input-icon"></span>
+                <div class="form-group">
+                    <label for="subject">Assunto <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <select id="subject" name="subject" required>
+                            <option value="">Seleciona um assunto</option>
+                            <option value="projeto">Proposta de Projeto</option>
+                            <option value="colaboracao">Colaboração</option>
+                            <option value="emprego">Oportunidade de Emprego</option>
+                            <option value="info">Pedido de Informação</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                        <span class="input-icon"></span>
+                    </div>
+                    <span class="error-message"></span>
                 </div>
-                <span class="error-message"></span>
-            </div>
 
-            <div class="form-group">
-                <label for="message">Mensagem <span class="required">*</span></label>
-                <div class="input-wrapper">
-                    <textarea id="message" name="message" placeholder="Escreve aqui a tua mensagem..." required minlength="10" rows="6"></textarea>
-                    <span class="input-icon"></span>
+                <div class="form-group">
+                    <label for="message">Mensagem <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <textarea id="message" name="message" placeholder="Escreve aqui a tua mensagem..." required minlength="10" rows="6"></textarea>
+                        <span class="input-icon"></span>
+                    </div>
+                    <span class="error-message"></span>
+                    <div class="char-counter">
+                        <span id="char-count">0</span> / 500 caracteres
+                    </div>
                 </div>
-                <span class="error-message"></span>
-                <div class="char-counter">
-                    <span id="char-count">0</span> / 500 caracteres
+
+                <button type="submit" class="submit-btn" id="submit-btn">
+                    <span class="btn-text">Enviar Mensagem</span>
+                    <span class="btn-icon">📨</span>
+                </button>
+
+            </form>
+
+            <!-- Informações de contacto -->
+            <div class="contact-info">
+                <h3>Outras Formas de Contacto</h3>
+                <div class="info-item">
+                    <span class="icon">📧</span>
+                    <span>a19851@aealvalade.edu.pt</span>
+                </div>
+                <div class="info-item">
+                    <span class="icon">📱</span>
+                    <span>+351 912 000 055</span>
+                </div>
+                <div class="info-item">
+                    <span class="icon">📍</span>
+                    <span>Lisboa, Portugal</span>
+                </div>
+                <div class="social-links">
+                    <a href="https://github.com/Lara07-Sofia" target="_blank">GitHub</a>
                 </div>
             </div>
 
-            <button type="submit" class="submit-btn" id="submit-btn">
-                <span class="btn-text">Enviar Mensagem</span>
-                <span class="btn-icon">📨</span>
-            </button>
+        </div>
+    </section>
 
-        </form>
-
-        <div class="contact-info">
-            <h3>Outras Formas de Contacto</h3>
-            <div class="info-item">
-                <span class="icon">📧</span>
-                <span>a19851@aealvalade.edu.pt</span>
-            </div>
-            <div class="info-item">
-                <span class="icon">📱</span>
-                <span>+351 912 000 055</span>
-            </div>
-            <div class="info-item">
-                <span class="icon">📍</span>
-                <span>Lisboa, Portugal</span>
-            </div>
-            <div class="social-links">
-                <a href="https://github.com/Lara07-Sofia" target="_blank">GitHub</a>
+    <!-- ===== PAINEL ADMIN (mensagens recebidas) ===== -->
+    <section id="admin-messages" class="admin-messages" style="display: none;">
+        <div class="admin-header">
+            <h2>📨 Mensagens Recebidas</h2>
+            <div class="admin-actions">
+                <span class="message-count"><strong id="total-messages">0</strong> mensagens</span>
+                <button id="clear-messages" class="btn-danger">🗑️ Limpar Todas</button>
             </div>
         </div>
-    </div>
-</section>
-
-<section id="admin-messages" class="admin-messages" style="display: none;">
-    <div class="admin-header">
-        <h2>📨 Mensagens Recebidas</h2>
-        <div class="admin-actions">
-            <span class="message-count">
-                <strong id="total-messages">0</strong> mensagens
-            </span>
-            <button id="clear-messages" class="btn-danger">
-                🗑️ Limpar Todas
-            </button>
+        <div id="messages-list" class="messages-list"></div>
+        <div id="no-messages" class="no-messages">
+            <p>📭 Ainda não há mensagens</p>
         </div>
-    </div>
-    <div id="messages-list" class="messages-list"></div>
-    <div id="no-messages" class="no-messages">
-        <p>📭 Ainda não há mensagens</p>
-    </div>
-</section>
+    </section>
 
-<button id="toggle-admin" class="toggle-admin" title="Ver Mensagens">
-    📨
-    <span class="badge" id="unread-badge" style="display: none;">0</span>
-</button>
+    <!-- Botão flutuante para abrir o painel admin -->
+    <button id="toggle-admin" class="toggle-admin" title="Ver Mensagens">
+        📨
+        <span class="badge" id="unread-badge" style="display: none;">0</span>
+    </button>
 
-    <!-- ================= FOOTER ================= -->
+    <!-- ===== FOOTER ===== -->
     <footer>
         <p>©<span id="year"></span> Lara Santos. Feito com ❤️ e ☕</p>
     </footer>
 
+    <!-- Container para notificações toast -->
     <div id="toast-container" class="toast-container"></div>
 
-    <!-- JavaScript original -->
+    <!-- Script principal -->
     <script src="script.js"></script>
-
-    <!-- Efeitos: matrix rain + cursor personalizado -->
-    <script src="efeitos.js"></script>
 
 </body>
 
