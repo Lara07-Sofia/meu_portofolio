@@ -820,4 +820,168 @@ document.addEventListener('DOMContentLoaded', () => {
     backBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
 });
+
+
+
+
+
+
+
+
+// ===== GITHUB API INTEGRATION =====
+
+const GITHUB_USERNAME = 'Lara07-Sofia'; // ALTERAR PARA O TEU USERNAME!
+
+// Buscar dados do utilizador
+async function fetchGitHubUserData() {
+    try {
+        const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
+        
+        if (!response.ok) {
+            throw new Error(`GitHub API error: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        console.log('✅ GitHub user data:', data);
+        return data;
+        
+    } catch (error) {
+        console.error('❌ Erro ao buscar GitHub user:', error);
+        throw error;
+    }
+}
+
+// Atualizar stats no DOM
+function updateGitHubStats(userData) {
+    document.getElementById('repos-count').textContent = userData.public_repos;
+    document.getElementById('followers-count').textContent = userData.followers;
+    document.getElementById('following-count').textContent = userData.following;
+    
+    // Remover classe loading
+    document.querySelectorAll('.stat-value').forEach(el => {
+        el.classList.remove('loading');
+    });
+}
+
+
+// Buscar repositórios do utilizador
+async function fetchGitHubRepos() {
+    try {
+        const response = await fetch(
+            `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=stars&per_page=6`
+        );
+        
+        if (!response.ok) {
+            throw new Error(`GitHub API error: ${response.status}`);
+        }
+        
+        const repos = await response.json();
+        
+        console.log('✅ GitHub repos:', repos);
+        return repos;
+        
+    } catch (error) {
+        console.error('❌ Erro ao buscar repos:', error);
+        throw error;
+    }
+}
+
+// Calcular total de stars
+async function calculateTotalStars() {
+    try {
+        const repos = await fetchGitHubRepos();
+        const totalStars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
+        
+        document.getElementById('stars-count').textContent = totalStars;
+        
+        return repos;
+    } catch (error) {
+        document.getElementById('stars-count').textContent = '0';
+        throw error;
+    }
+}
+
+// Renderizar repositórios
+function renderRepos(repos) {
+    const grid = document.getElementById('repos-grid');
+    
+    grid.innerHTML = repos.map(repo => `
+        
+
+            
+
+                
+📦
+
+                
+
+                    
+${repo.name}
+
+                
+
+            
+
+            
+
+                ${repo.description || 'Sem descrição'}
+            
+
+
+            
+
+                ⭐ ${repo.stargazers_count}
+                🔀 ${repo.forks_count}
+            
+
+            ${repo.language ? `${repo.language}` : ''}
+        
+
+    `).join('');
+}
+
+
+// ===== INICIALIZAR GITHUB STATS =====
+
+async function initGitHubStats() {
+    console.log('🐙 Carregando GitHub stats...');
+    
+    try {
+        // Buscar dados em paralelo
+        const [userData, repos] = await Promise.all([
+            fetchGitHubUserData(),
+            calculateTotalStars()
+        ]);
+        
+        // Atualizar UI
+        updateGitHubStats(userData);
+        renderRepos(repos);
+        
+        console.log('✅ GitHub stats carregados!');
+        
+    } catch (error) {
+        console.error('❌ Erro ao carregar GitHub stats');
+        // Mostrar erro na UI
+        document.querySelectorAll('.stat-value').forEach(el => {
+            el.textContent = '--';
+            el.classList.remove('loading');
+        });
+    }
+}
+
+    // Inicializar ao carregar página
+    document.addEventListener('DOMContentLoaded', () => {
+    initGitHubStats();
+});
+
+
+
+
+
+
+
+
+
